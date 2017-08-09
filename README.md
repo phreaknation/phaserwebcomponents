@@ -21,6 +21,7 @@ By August 12, 2017
 - [ ] **[WIP]** Damage Indicator - Shows a number that can be animated in various ways.
 - [x] Name Plate - Shows string that can be styled.
 - [x] Stat Bar - A bar that can be both horizontal or vertical as well as fill from either end.
+
 **UI**
 - [ ] Loader - Animated indicator that shows progress.
 - [x] Web Component - Base extendable web component.
@@ -34,6 +35,7 @@ August 31, 2017
 - [ ] Icon - Used for external icon libraries such as font awesome.
 - [ ] Line - A singular line component.
 - [ ] Shape - Various shapes such as squares, circles, triangles and more.
+
 **UI**
 - [ ] Marker - Call out to mark or call notice to a point.
 - [ ] Popover - Static popover that has to be triggered to be closed.
@@ -45,10 +47,12 @@ August 31, 2017
 
 **Game**
 - [ ] MiniMap - TBD
+
 **Media**
 - [ ] Carousel - A slideshow for cycling through elements.
 - [ ] Music Player - A styleable music player.
 - [ ] Video Player - A styleable video player.
+
 **UI**
 - [ ] Badge - Highlight strings in content.
 - [ ] Calendar - Calendar components.
