@@ -14,7 +14,7 @@ All dates are subject to change as these are estimations
 
 **[WIP]** = Currently work in progress.
 
-**Initial Release**
+### Initial Release
 By August 12, 2017
 
 **Game**
@@ -27,7 +27,7 @@ By August 12, 2017
 - [x] Web Component - Base extendable web component.
 - [ ] **[WIP]** Window - Window that has various types of display such as basic window, headerless panel and alert dialog. Also can be dragable.
 
-** First Suplementary Release **
+### First Suplementary Release
 August 31, 2017
 
 **Media**
@@ -43,7 +43,7 @@ August 31, 2017
 - [ ] Tag - Array for strings that can be styled.
 - [ ] Toast - Popup notification component.
 
-** Future components **
+### Future components
 
 **Game**
 - [ ] MiniMap - TBD
