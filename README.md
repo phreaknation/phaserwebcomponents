@@ -23,9 +23,11 @@ By August 12, 2017
 - [x] Stat Bar - A bar that can be both horizontal or vertical as well as fill from either end.
 
 **UI**
-- [ ] Loader - Animated indicator that shows progress.
+- [ ] **[WIP]** Loader - Animated indicator that shows progress.
+- [ ] **[WIP]** Marker - Call out to mark or call notice to a point.
+- [x] Switch - On and off toggle for a boolean value.
 - [x] Web Component - Base extendable web component.
-- [ ] **[WIP]** Window - Window that has various types of display such as basic window, headerless panel and alert dialog. Also can be dragable.
+- [x] Window - Window that has various types of display such as basic window, headerless panel and alert dialog. Also can be dragable.
 
 ### First Suplementary Release
 August 31, 2017
@@ -37,9 +39,9 @@ August 31, 2017
 - [ ] Shape - Various shapes such as squares, circles, triangles and more.
 
 **UI**
-- [ ] Marker - Call out to mark or call notice to a point.
+- [ ] Badge - Highlight strings in content.
 - [ ] Popover - Static popover that has to be triggered to be closed.
-- [ ] Switch - On and off toggle for a boolean value.
+- [ ] Showcase - Features content such as with a jumbotron or well.
 - [ ] Tag - Array for strings that can be styled.
 - [ ] Toast - Popup notification component.
 
@@ -54,7 +56,6 @@ August 31, 2017
 - [ ] Video Player - A styleable video player.
 
 **UI**
-- [ ] Badge - Highlight strings in content.
 - [ ] Calendar - Calendar components.
 - [ ] Card - A customizable panel.
 - [ ] Collapse - Collapseable component.
@@ -70,7 +71,6 @@ August 31, 2017
 - [ ] Progress Bar - Provides feedback and displays progress over time.
 - [ ] Radial Menu - Circular menu.
 - [ ] Radial Menu Item - Circular menu item.
-- [ ] Showcase - Features content such as with a jumbotron or well.
 - [ ] Slider - A range picker between two number values.
 - [ ] Tab - Tabs to traverse panels.
 - [ ] Timer - Timer component that can be used for count downs or ups as well as triggering events.
