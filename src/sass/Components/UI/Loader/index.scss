@@ -1,0 +1,63 @@
+.loader {
+  display: block;
+  height: 58px; width: 60px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform-origin: 0% 50%;
+  transform:rotate(#{$rot}deg);
+  z-index: 1000;
+
+  .circle {
+    height: 10px; width: 10px;
+    position: absolute;
+    transform-origin: 50% 30px;
+    @for $i from 1 through $amount {
+      &:nth-of-type(#{$i}){
+        transform:rotate(#{$i * $divider}deg);
+
+        &:before {
+          animation-delay: #{($i * $divider) + 500}ms;
+          animation: rotation $speed linear infinite, color $speed linear infinite;
+        }
+      }
+    }
+
+    &:before {
+      background-color: $bgColorSecond;
+      box-shadow: 0 0 10px 1px $bgColorSecond;
+      border-radius: 50%;
+      content:'';
+      height: 100%; width: 100%;
+      position: absolute;
+      top: 0; left: 0;
+      transform-origin:50% 0%;
+    }
+  }
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes color {
+  0% {
+    background-color: $bgColorFirst;
+    box-shadow: 0 0 3px 1px $bgColorFirst;
+  }
+
+  50% {
+    background-color: $bgColorSecond;
+    box-shadow: 0 0 10px 1px $bgColorSecond;
+  }
+
+  100% {
+    background-color: $bgColorFirst;
+    box-shadow: 0 0 3px 1px $bgColorFirst;
+  }
+}

@@ -1,0 +1,48 @@
+body {
+  background-color: #222;
+}
+
+.marker {
+  background: #444;
+  border-radius: 5px;
+  display: inline-block;
+  min-height: 30px;
+  min-width: 30px;
+  position: absolute;
+  z-index: 0;
+
+  &:before {
+    border-style: solid;
+    border-width: 18px 10px 0 10px;
+    border-color: #444 transparent transparent transparent;
+    bottom: -18px; left: calc(50% - 9px);
+    content: '';
+    height: 0; width: 0;
+    position: absolute;
+    z-index: 0;
+  }
+
+  &:after {
+    border-style: solid;
+    border-width: 18px 10px 0 10px;
+    border-color: #888 transparent transparent transparent;
+    bottom: -11px; left: calc(50% - 9px);
+    content: '';
+    height: 0; width: 0;
+    position: absolute;
+    z-index: 0;
+  }
+
+  .text {
+    background: #888;
+    border-radius: 5px;
+    display: inline-block;
+    line-height: 30px;
+    margin: 4px;
+    min-height: 30px;
+    min-width: 30px;
+    padding: 0 5px;
+    position: relative;
+    z-index: 1;
+  }
+}

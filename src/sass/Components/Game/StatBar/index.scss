@@ -1,0 +1,69 @@
+.stat-bar {
+  /*background: #444;*/
+  background: #4c1f21; /* Old browsers */
+  background: -moz-linear-gradient(top, #cc5c74 0%, #702e31 60%, #4c1f21 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #cc5c74 0%, #702e31 60%, #4c1f21 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #cc5c74 0%, #702e31 60%, #4c1f21 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc5c74', endColorstr='#4c1f21',GradientType=0 ); /* IE6-9 */
+  border: 1px solid #222;
+  border-radius: 4px;
+  font-size: 11px;
+  height: 5px;
+  width: 60px;
+  position: absolute;
+  text-align: center;
+  z-index: 15;
+
+  &.dark-background {
+    background: #444;
+  }
+
+  &.big {
+    height: 16px;
+
+    .bar {
+      height: 16px;
+    }
+
+    .display {
+      height: 16px;
+    }
+  }
+
+  .bar {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c9de96+0,8ab66b+60,398235+100 */
+    background: #c9de96; /* Old browsers */
+    background: -moz-linear-gradient(top, #c9de96 0%, #8ab66b 60%, #398235 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #c9de96 0%, #8ab66b 60%, #398235 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #c9de96 0%, #8ab66b 60%, #398235 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9de96', endColorstr='#398235',GradientType=0 ); /* IE6-9 */
+    border-radius: 4px;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .display {
+    background: transparent;
+    color: #ffffff;
+    display: none;
+    height: 5px;
+    width: 100%;
+    position: absolute;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    user-select: none;
+
+    .value, .max {
+      color: #ffffff;
+      height: 16px;
+      line-height: 16px;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+}

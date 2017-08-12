@@ -1,0 +1,117 @@
+@mixin window($position) {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px ridge #222;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  max-height: 80vh;
+  max-width: 80vw;
+  min-height: 300px;
+  min-width: 400px;
+  position: $position;
+  z-index: 900;
+
+  &.active {
+    z-index: 901;
+  }
+
+  .header {
+    border-bottom: 2px ridge #222;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    .icon {
+      background-color: rgba(32, 0, 0, 0.65);
+      display: inline-block;
+      float: left;
+      height: 40px;
+      width: 40px;
+    }
+
+    .title {
+      display: inline-block;
+      float: left;
+      height: 40px;
+      margin-left: 10px;
+      pointer-events: none;
+      user-select: none;
+
+      .title-text {
+        line-height: 40px;
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+
+    .controls {
+      background-color: rgba(0, 0, 32, 0.65);
+      display: inline-block;
+      float: right;
+      height: 40px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+
+      .control {
+        height: 40px;
+        width: 40px;
+
+        &[data-action="close"] {
+          text-align: center;
+
+          &:after {
+            content: '×';
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .body {
+    background-color: rgba(0, 0, 0, 0.25);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    user-select: none;
+  }
+
+  .header + .body {
+    top: 40px;
+  }
+}
+
+.backdrop {
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.65);
+  display: flex;
+  justify-content: center;
+  overflow: auto;
+  position: absolute;
+  resize: both;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 200;
+
+  .alert {
+    @include window(relative)
+  }
+}
+
+.window, .panel {
+  @include window(absolute)
+}

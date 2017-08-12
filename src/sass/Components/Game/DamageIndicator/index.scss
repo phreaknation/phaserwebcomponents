@@ -1,0 +1,14 @@
+.damage-indicator {
+  background: transparent;
+  position: absolute;
+  z-index: 20;
+
+  .value {
+    color: #f00;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    pointer-events: none;
+    user-select: none;
+  }
+}

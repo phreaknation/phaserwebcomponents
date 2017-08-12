@@ -1,0 +1,32 @@
+[data-isresizeable="true"] {
+
+  .resizer {
+
+      &.left, &.right {
+        pointer: ew-resize;
+      }
+
+      &.top, &.bottom {
+        pointer: ns-resize;
+      }
+
+      &.top.left, &.bottom.right {
+        pointer: nwse-resize;
+      }
+
+      &.top.right, &.bottom.left {
+        pointer: nesw-resize;
+      }
+  }
+}
+
+
+[data-ismoveable="true"] {
+  // cursor: grab;
+  // cursor: -webkit-grab;
+
+  &.moving {
+    // cursor: grabbing;
+    // cursor: -webkit-grabbing;
+  }
+}

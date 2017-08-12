@@ -1,0 +1,41 @@
+
+
+.name-plate {
+  background: $backgroundColor;
+  border: 2px ridge #222;
+  border-radius: 4px;
+  font-size: 11px;
+  min-width: 60px;
+  padding: $paddingV $paddingH;
+  position: absolute;
+  text-align: center;
+  z-index: 15;
+
+  .display {
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 60px;
+    pointer-events: none; user-select: none;
+    position: relative;
+
+    .text {
+      color: $foregroundColor;
+      height: $height;
+      line-height: $height;
+      pointer-events: none; user-select: none;
+      text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    }
+
+    .overlay {
+      background: -webkit-linear-gradient(#ffffff, #888);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      height: $height;
+      line-height: $height;
+      pointer-events: none; user-select: none;
+      position: absolute;
+      top: 0; left: 0;
+    }
+  }
+}
