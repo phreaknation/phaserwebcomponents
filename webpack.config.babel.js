@@ -33,10 +33,10 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(nodeEnv) },
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor'/* chunkName= */,
-      filename: './js/vendor.bundle.js'/* filename= */
-    }),
+    // new webpack.optimize.CommonsChunkPlugin({
+    //   name: 'vendor'/* chunkName= */,
+    //   filename: './js/vendor.bundle.js'/* filename= */
+    // }),
     new webpack.LoaderOptionsPlugin({
       minimize: false,
       debug: true,
