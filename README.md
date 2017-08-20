@@ -19,16 +19,18 @@ Required Modules:
   NA
 
 ```
+// Optional
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+// Required
 <script src="/path/to/phaser.min.js"></script>
 <script src="/path/to/plugin/phreaknation.phaserwebcomponents.min.js"></script>
+
 ```
 
 In your create of your phaser project.
 
 ```
-game.plugins.add(Phaser.Plugin.TilemapGenerator);
+// Be sure to pass the game object into the constructor.
+this.game.plugins.add(new Phaser.Plugin.PhaserWebComponents(this.game));
 ```
-
-## Methods
-
-** More details coming soon **
