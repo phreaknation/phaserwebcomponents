@@ -1,46 +1,48 @@
 import Utility from './Utility/index.js';
 
-// import Badge from './components/UI/Badge/index.js';
-// import Calendar from './components/UI/Calendar/index.js';
-// import Card from './components/UI/Card/index.js';
-// import Collapse from './components/UI/Collapse/index.js';
-// import ColorPicker from './components/UI/ColorPicker/index.js';
-// import DropDown from './components/UI/DropDown/index.js';
-// import Group from './components/UI/Group/index.js';
-// import Header from './components/UI/Header/index.js';
-// import Keyboard from './components/UI/Keyboard/index.js';
-// import Layout from './components/UI/Layout/index.js';
-import Loader from './components/UI/Loader/index.js';
-import Marker from './components/UI/Marker/index.js';
-// import MenuBar from './components/UI/MenuBar/index.js';
-// import MenuItem from './components/UI/MenuItem/index.js';
-// import Pager from './components/UI/Pager/index.js';
-// import Pagination from './components/UI/Pagination/index.js';
-// import Popover from './components/UI/Popover/index.js';
-// import ProgressBar from './components/UI/ProgressBar/index.js';
-// import Showcase from './components/UI/Showcase/index.js';
-// import Slider from './components/UI/Slider/index.js';
-import Switch from './components/UI/Switch/index.js';
-// import Tab from './components/UI/Tab/index.js';
-// import Tag from './components/UI/Tag/index.js';
-// import Timer from './components/UI/Timer/index.js';
-// import Toast from './components/UI/Toast/index.js';
-// import Toggle from './components/UI/Toggle/index.js';
-// import Tooltip from './components/UI/Tooltip/index.js';
-import Window from './components/UI/Window/index.js';
+// import Badge from './Components/UI/Badge/index.js';
+// import Calendar from './Components/UI/Calendar/index.js';
+// import Card from './Components/UI/Card/index.js';
+// import Collapse from './Components/UI/Collapse/index.js';
+// import ColorPicker from './Components/UI/ColorPicker/index.js';
+// import DropDown from './Components/UI/DropDown/index.js';
+// import Group from './Components/UI/Group/index.js';
+// import Header from './Components/UI/Header/index.js';
+// import Keyboard from './Components/UI/Keyboard/index.js';
+// import Layout from './Components/UI/Layout/index.js';
+import Loader from './Components/UI/Loader/index.js';
+import Marker from './Components/UI/Marker/index.js';
+// import MenuBar from './Components/UI/MenuBar/index.js';
+// import MenuItem from './Components/UI/MenuItem/index.js';
+// import Pager from './Components/UI/Pager/index.js';
+// import Pagination from './Components/UI/Pagination/index.js';
+// import Popover from './Components/UI/Popover/index.js';
+// import ProgressBar from './Components/UI/ProgressBar/index.js';
+import SeekBar from './Components/UI/SeekBar/index.js';
+// import Showcase from './Components/UI/Showcase/index.js';
+// import Slider from './Components/UI/Slider/index.js';
+import Switch from './Components/UI/Switch/index.js';
+// import Tab from './Components/UI/Tab/index.js';
+// import Tag from './Components/UI/Tag/index.js';
+// import Timer from './Components/UI/Timer/index.js';
+// import Toast from './Components/UI/Toast/index.js';
+// import Toggle from './Components/UI/Toggle/index.js';
+// import Tooltip from './Components/UI/Tooltip/index.js';
+import VolumeBar from './Components/UI/VolumeBar/index.js';
+import Window from './Components/UI/Window/index.js';
 
-// import DamageIndicator from './components/Game/DamageIndicator/index.js';
-// import Minimap from './components/Game/Minimap/index.js';
-import NamePlate from './components/Game/NamePlate/index.js';
-import StatBar from './components/Game/StatBar/index.js';
+// import DamageIndicator from './Components/Game/DamageIndicator/index.js';
+// import Minimap from './Components/Game/Minimap/index.js';
+import NamePlate from './Components/Game/NamePlate/index.js';
+import StatBar from './Components/Game/StatBar/index.js';
 
-// import Avatar from './components/Media/Avatar/index.js';
-// import Carousel from './components/Media/Carousel/index.js';
-// import Icon from './components/Media/Icon/index.js';
-// import Line from './components/Media/Line/index.js';
-// import MusicPlayer from './components/Media/MusicPlayer/index.js';
-// import Shape from './components/Media/Shape/index.js';
-// import VideoPlayer from './components/Media/VideoPlayer/index.js';
+// import Avatar from './Components/Media/Avatar/index.js';
+// import Carousel from './Components/Media/Carousel/index.js';
+// import Icon from './Components/Media/Icon/index.js';
+// import Line from './Components/Media/Line/index.js';
+import MusicPlayer from './Components/Media/MusicPlayer/index.js';
+// import Shape from './Components/Media/Shape/index.js';
+import VideoPlayer from './Components/Media/VideoPlayer/index.js';
 
 (() => {
   class PhaserWebComponents {
@@ -71,6 +73,7 @@ import StatBar from './components/Game/StatBar/index.js';
           // Pagination: Pagination,
           // Popover: Popover,
           // ProgressBar: ProgressBar,
+          SeekBar: SeekBar,
           // Showcase: Showcase,
           // Slider: Slider,
           Switch: Switch,
@@ -80,6 +83,7 @@ import StatBar from './components/Game/StatBar/index.js';
           // Toast: Toast,
           // Toggle: Toggle,
           // Tooltip: Tooltip,
+          VolumeBar: VolumeBar,
           Window: Window,
         },
         Game: {
@@ -93,9 +97,9 @@ import StatBar from './components/Game/StatBar/index.js';
           // Carousel: Carousel,
           // Icon: Icon,
           // Line: Line,
-          // MusicPlayer: MusicPlayer,
+          MusicPlayer: MusicPlayer,
           // Shape: Shape,
-          // VideoPlayer: VideoPlayer,
+          VideoPlayer: VideoPlayer,
         }
       }
 
