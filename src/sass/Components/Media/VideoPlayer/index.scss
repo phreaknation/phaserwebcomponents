@@ -1,0 +1,161 @@
+
+.video-player {
+  display: inline-block;
+  background-color:#101010;
+  // height: 80vh; width: 80vw;
+  color: #ffffff;
+  overflow: hidden;
+  margin: auto;
+  min-width: 400px;
+  z-index: 1050;
+
+  .title {
+    margin: 20px;
+
+    a {
+      color: rgba(32, 128, 32, 1);
+      font-weight: bold;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:active {
+        color: rgba(42, 169, 42, 1);
+      }
+
+      &:visited {
+        color: rgba(57, 103, 57, 1);
+      }
+    }
+  }
+
+  .player {
+    display: block;
+    margin: 20px 15px 10px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    width: calc(100% - 40px);
+    // @include aspect-ratio(16, 9);
+
+    &.fullscreen {
+      margin: 0!important;
+      width: initial!important;
+    }
+
+    .video {
+      background:#000;
+      height: auto; width: 100%;
+      user-select: none;
+    }
+
+    .play.big {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 10px solid rgba(0, 0, 0, 0.8);
+      border-radius: 50%;
+      box-sizing: content-box;
+      color: rgba(0, 0, 0, 0.8);
+      height: 64px; width: 82px;
+      margin: auto;
+      opacity: 0.6;
+      padding: 20px 10px;
+      pointer-events: none;
+      position: absolute;
+      text-align: center;
+      top: 0; right: 0; bottom: 0; left: 0;
+      user-select: none;
+      @include transition(opacity $speed);
+
+      i.fa.fa-play {
+        padding-left: 6px
+      }
+    }
+
+    .controls {
+      background: rgba(0,0,0,0.4);
+      border-top: 2px outset rgba(32, 128, 32, 0.3);
+      bottom: 0px; left: 0; right: 0;
+      padding: 10px;
+      position: absolute;
+      user-select: none;
+      @include transition(bottom $speed, border-top-width $speed);
+
+
+      .seek-bar {
+
+        .progress {
+
+          .cached {
+
+          }
+
+          .bar {
+
+            .scrubber {
+
+            }
+          }
+        }
+      }
+
+      button {
+        background-color: rgba(32, 128, 32, 0.75);
+        border: none;
+        // border-radius: 50%;
+        cursor: pointer;
+        height: 32px; width: 32px;
+        user-select: none;
+        vertical-align: bottom;
+
+        &:focus {
+          outline: none;
+        }
+
+        &.play {
+
+        }
+
+        &.pause {
+
+        }
+
+        &.restart {
+
+        }
+
+        &.stop {
+
+        }
+
+        &.fullscreen {
+          // TODO:need to think of a better way to handle this
+          float: right;
+        }
+
+        &.mute {
+          float: right;
+          margin-right: 5px;
+        }
+      }
+
+      .volume-bar {
+        display: inline-block;
+        float: right;
+        margin-top: 22px;
+        margin-right: 5px;
+        // bottom: 10px; right: 10px;
+        // position: absolute;
+
+        .back {
+
+        }
+
+        .fill {
+
+        }
+      }
+    }
+  }
+}

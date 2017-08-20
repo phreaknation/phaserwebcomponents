@@ -1,0 +1,28 @@
+.volume-bar {
+  height: 30px; width: 100px;
+  margin: 0;
+  overflow: hidden;
+  position: relative;
+
+  .back {
+    border-bottom: 30px solid #333;
+    border-left: 100px solid transparent;
+    margin: 0;
+    height: 0; width: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0; left: 0;
+    user-select: none;
+  }
+
+  .fill {
+    border-bottom: 30px solid #080;
+    border-left: 100px solid transparent;
+    margin: 0;
+    height: 0; width: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0; left: 0;
+    user-select: none;
+  }
+}

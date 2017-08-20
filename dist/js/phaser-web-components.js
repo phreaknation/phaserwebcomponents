@@ -1,8 +1,8 @@
 webpackJsonp([0],[
 /* 0 */
-/*!********************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/WebComponent/index.js ***!
-  \********************************************************************************************************/
+/*!****************************************************!*\
+  !*** ./src/js/Components/UI/WebComponent/index.js ***!
+  \****************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -37,15 +37,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 // dockable: able to dock to the sides of the page. Possibly to windows,
 // scrollspy: highlight options or trigger events on scroll,
 
-var _class = function (_Phaser$Sprite) {
-  _inherits(_class, _Phaser$Sprite);
+var _class2 = function (_Phaser$Sprite) {
+  _inherits(_class2, _Phaser$Sprite);
 
-  function _class(options, defaults) {
-    _classCallCheck(this, _class);
+  function _class2(options, defaults) {
+    _classCallCheck(this, _class2);
 
     var game = options && options.owner ? options.owner.game : options.game;
 
-    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, game, options && options.x ? options.x : 0, options && options.y ? options.y : 0, options && options.key ? options.key : '', options && options.frame ? options.frame : ''));
+    var _this = _possibleConstructorReturn(this, (_class2.__proto__ || Object.getPrototypeOf(_class2)).call(this, game, options && options.x ? options.x : 0, options && options.y ? options.y : 0, options && options.key ? options.key : '', options && options.frame ? options.frame : ''));
 
     _this._ = {
       el: {},
@@ -54,6 +54,10 @@ var _class = function (_Phaser$Sprite) {
       owner: options.owner,
       watchers: options.watchers || [],
       ownerPrevPosition: {
+        x: null,
+        y: null
+      },
+      cameraPrevPosition: {
         x: null,
         y: null
       }
@@ -89,7 +93,7 @@ var _class = function (_Phaser$Sprite) {
     _this.exists = false;
     _this.alive = false;
 
-    if (!_this._.interactions) {
+    if (!_this._.interactions && (_this._.options.moveable == true || _this._.options.resizable)) {
       _this._.interactions = window._PWC.registry.interactions = {};
       _this._.interactions.moveable = {
         activeWindow: null,
@@ -144,7 +148,7 @@ var _class = function (_Phaser$Sprite) {
 
   // Component specific methods
 
-  _createClass(_class, [{
+  _createClass(_class2, [{
     key: 'createComponent',
     value: function createComponent(cssSelector) {
       var template = document.createElement('template');
@@ -409,6 +413,76 @@ var _class = function (_Phaser$Sprite) {
 
       return valuesToUpdate;
     }
+  }, {
+    key: 'trigger',
+    value: function trigger(eventName, props) {
+      var event = new CustomEvent(eventName, { detail: props });
+
+      this._.el.container.dispatchEvent(event);
+    }
+  }, {
+    key: 'addClass',
+    value: function addClass(el, _classes) {
+      if (this.isNode(el)) {
+        if (typeof _classes === 'string') {
+          _classes.split(' ').forEach(function (_class) {
+            el.classList.add(_class);
+          });
+        } else if (this.isArray(_classes)) {
+          _classes.forEach(function (_class) {
+            if (typeof _class === 'string') {
+              _class.split(' ').forEach(function (_c) {
+                el.classList.add(_c);
+              });
+            }
+          });
+        }
+      }
+    }
+  }, {
+    key: 'removeClass',
+    value: function removeClass(el, _classes) {
+      if (this.isNode(el)) {
+        if (typeof _classes === 'string') {
+          _classes.split(' ').forEach(function (_class) {
+            el.classList.remove(_class);
+          });
+        } else if (this.isArray(_classes)) {
+          _classes.forEach(function (_class) {
+            if (typeof _class === 'string') {
+              _class.split(' ').forEach(function (_c) {
+                el.classList.remove(_c);
+              });
+            }
+          });
+        }
+      }
+    }
+  }, {
+    key: 'hasClass',
+    value: function hasClass(el, _classes) {
+      var contained = true;
+      if (this.isNode(el)) {
+        if (typeof _classes === 'string') {
+          _classes.split(' ').forEach(function (_class) {
+            if (!el.classList.contains(_class)) {
+              contained = false;
+            }
+          });
+        } else if (this.isArray(_classes)) {
+          _classes.forEach(function (_class) {
+            if (typeof _class === 'string') {
+              _class.split(' ').forEach(function (_c) {
+                if (!el.classList.contains(_c)) {
+                  contained = false;
+                }
+              });
+            }
+          });
+        }
+      }
+      return contained;
+    }
 
     // Helpers
 
@@ -644,40 +718,45 @@ var _class = function (_Phaser$Sprite) {
 
       var owner = this._.owner;
       if (owner && owner.alive) {
-        if (this._.ownerPrevPosition.x !== owner.position.x || this._.ownerPrevPosition.y !== owner.position.y) {
+        if (this._.ownerPrevPosition.x !== owner.position.x || this._.ownerPrevPosition.y !== owner.position.y || this._.cameraPrevPosition.x !== this.game.camera.position.x || this._.cameraPrevPosition.y !== this.game.camera.position.y) {
           this.updatePosition(positionOffset);
-          this._.ownerPrevPosition.x = owner.position.x;
-          this._.ownerPrevPosition.y = owner.position.y;
+          if (this._.ownerPrevPosition.x !== owner.position.x || this._.ownerPrevPosition.y !== owner.position.y) {
+            this._.ownerPrevPosition.x = owner.position.x;
+            this._.ownerPrevPosition.y = owner.position.y;
+          } else if (this._.cameraPrevPosition.x !== this.game.camera.position.x || this._.cameraPrevPosition.y !== this.game.camera.position.y) {
+            this._.cameraPrevPosition.x = this._.cameraPrevPosition.x;
+            this._.cameraPrevPosition.y = this._.cameraPrevPosition.y;
+          }
         }
       }
 
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+      _get(_class2.prototype.__proto__ || Object.getPrototypeOf(_class2.prototype), 'update', this).call(this);
     }
   }]);
 
-  return _class;
+  return _class2;
 }(Phaser.Sprite);
 
-exports.default = _class;
+exports.default = _class2;
 
 /***/ }),
 /* 1 */
-/*!*************************************************************************************************************************************************************!*\
-  !*** multi J:/Dropbox/Projects/development/Phaser Web Components/src/js/index.js J:/Dropbox/Projects/development/Phaser Web Components/src/sass/index.scss ***!
-  \*************************************************************************************************************************************************************/
+/*!*****************************************************!*\
+  !*** multi ./src/js/index.js ./src/sass/index.scss ***!
+  \*****************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! J:\Dropbox\Projects\development\Phaser Web Components\src\js\index.js */2);
-module.exports = __webpack_require__(/*! J:\Dropbox\Projects\development\Phaser Web Components\src\sass\index.scss */16);
+__webpack_require__(/*! J:\Dropbox\Projects\development\phaserwebcomponents\src\js\index.js */2);
+module.exports = __webpack_require__(/*! J:\Dropbox\Projects\development\phaserwebcomponents\src\sass\index.scss */24);
 
 
 /***/ }),
 /* 2 */
-/*!*****************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/index.js ***!
-  \*****************************************************************************/
+/*!*************************!*\
+  !*** ./src/js/index.js ***!
+  \*************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -687,77 +766,94 @@ module.exports = __webpack_require__(/*! J:\Dropbox\Projects\development\Phaser 
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-// import Badge from './components/UI/Badge/index.js';
-// import Calendar from './components/UI/Calendar/index.js';
-// import Card from './components/UI/Card/index.js';
-// import Collapse from './components/UI/Collapse/index.js';
-// import ColorPicker from './components/UI/ColorPicker/index.js';
-// import DropDown from './components/UI/DropDown/index.js';
-// import Group from './components/UI/Group/index.js';
-// import Header from './components/UI/Header/index.js';
-// import Keyboard from './components/UI/Keyboard/index.js';
-// import Layout from './components/UI/Layout/index.js';
+// import Badge from './Components/UI/Badge/index.js';
+// import Calendar from './Components/UI/Calendar/index.js';
+// import Card from './Components/UI/Card/index.js';
+// import Collapse from './Components/UI/Collapse/index.js';
+// import ColorPicker from './Components/UI/ColorPicker/index.js';
+// import DropDown from './Components/UI/DropDown/index.js';
+// import Group from './Components/UI/Group/index.js';
+// import Header from './Components/UI/Header/index.js';
+// import Keyboard from './Components/UI/Keyboard/index.js';
+// import Layout from './Components/UI/Layout/index.js';
 
-// import MenuBar from './components/UI/MenuBar/index.js';
-// import MenuItem from './components/UI/MenuItem/index.js';
-// import Pager from './components/UI/Pager/index.js';
-// import Pagination from './components/UI/Pagination/index.js';
-// import Popover from './components/UI/Popover/index.js';
-// import ProgressBar from './components/UI/ProgressBar/index.js';
-// import Showcase from './components/UI/Showcase/index.js';
-// import Slider from './components/UI/Slider/index.js';
+// import MenuBar from './Components/UI/MenuBar/index.js';
+// import MenuItem from './Components/UI/MenuItem/index.js';
+// import Pager from './Components/UI/Pager/index.js';
+// import Pagination from './Components/UI/Pagination/index.js';
+// import Popover from './Components/UI/Popover/index.js';
+// import ProgressBar from './Components/UI/ProgressBar/index.js';
 
-// import Tab from './components/UI/Tab/index.js';
-// import Tag from './components/UI/Tag/index.js';
-// import Timer from './components/UI/Timer/index.js';
-// import Toast from './components/UI/Toast/index.js';
-// import Toggle from './components/UI/Toggle/index.js';
-// import Tooltip from './components/UI/Tooltip/index.js';
+// import Showcase from './Components/UI/Showcase/index.js';
+// import Slider from './Components/UI/Slider/index.js';
+
+// import Tab from './Components/UI/Tab/index.js';
+// import Tag from './Components/UI/Tag/index.js';
+// import Timer from './Components/UI/Timer/index.js';
+// import Toast from './Components/UI/Toast/index.js';
+// import Toggle from './Components/UI/Toggle/index.js';
+// import Tooltip from './Components/UI/Tooltip/index.js';
 
 
-// import DamageIndicator from './components/Game/DamageIndicator/index.js';
-// import Minimap from './components/Game/Minimap/index.js';
+// import DamageIndicator from './Components/Game/DamageIndicator/index.js';
+// import Minimap from './Components/Game/Minimap/index.js';
+
+
+// import Avatar from './Components/Media/Avatar/index.js';
+// import Carousel from './Components/Media/Carousel/index.js';
+// import Icon from './Components/Media/Icon/index.js';
+// import Line from './Components/Media/Line/index.js';
+
+// import Shape from './Components/Media/Shape/index.js';
 
 
 var _index = __webpack_require__(/*! ./Utility/index.js */ 3);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _index3 = __webpack_require__(/*! ./components/UI/Loader/index.js */ 4);
+var _index3 = __webpack_require__(/*! ./Components/UI/Loader/index.js */ 4);
 
 var _index4 = _interopRequireDefault(_index3);
 
-var _index5 = __webpack_require__(/*! ./components/UI/Marker/index.js */ 6);
+var _index5 = __webpack_require__(/*! ./Components/UI/Marker/index.js */ 6);
 
 var _index6 = _interopRequireDefault(_index5);
 
-var _index7 = __webpack_require__(/*! ./components/UI/Switch/index.js */ 8);
+var _index7 = __webpack_require__(/*! ./Components/UI/SeekBar/index.js */ 8);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(/*! ./components/UI/Window/index.js */ 10);
+var _index9 = __webpack_require__(/*! ./Components/UI/Switch/index.js */ 10);
 
 var _index10 = _interopRequireDefault(_index9);
 
-var _index11 = __webpack_require__(/*! ./components/Game/NamePlate/index.js */ 12);
+var _index11 = __webpack_require__(/*! ./Components/UI/VolumeBar/index.js */ 12);
 
 var _index12 = _interopRequireDefault(_index11);
 
-var _index13 = __webpack_require__(/*! ./components/Game/StatBar/index.js */ 14);
+var _index13 = __webpack_require__(/*! ./Components/UI/Window/index.js */ 14);
 
 var _index14 = _interopRequireDefault(_index13);
+
+var _index15 = __webpack_require__(/*! ./Components/Game/NamePlate/index.js */ 16);
+
+var _index16 = _interopRequireDefault(_index15);
+
+var _index17 = __webpack_require__(/*! ./Components/Game/StatBar/index.js */ 18);
+
+var _index18 = _interopRequireDefault(_index17);
+
+var _index19 = __webpack_require__(/*! ./Components/Media/MusicPlayer/index.js */ 20);
+
+var _index20 = _interopRequireDefault(_index19);
+
+var _index21 = __webpack_require__(/*! ./Components/Media/VideoPlayer/index.js */ 22);
+
+var _index22 = _interopRequireDefault(_index21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-// import Avatar from './components/Media/Avatar/index.js';
-// import Carousel from './components/Media/Carousel/index.js';
-// import Icon from './components/Media/Icon/index.js';
-// import Line from './components/Media/Line/index.js';
-// import MusicPlayer from './components/Media/MusicPlayer/index.js';
-// import Shape from './components/Media/Shape/index.js';
-// import VideoPlayer from './components/Media/VideoPlayer/index.js';
 
 (function () {
   var PhaserWebComponents = function () {
@@ -790,31 +886,33 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           // Pagination: Pagination,
           // Popover: Popover,
           // ProgressBar: ProgressBar,
+          SeekBar: _index8.default,
           // Showcase: Showcase,
           // Slider: Slider,
-          Switch: _index8.default,
+          Switch: _index10.default,
           // Tab: Tab,
           // Tag: Tag,
           // Timer: Timer,
           // Toast: Toast,
           // Toggle: Toggle,
           // Tooltip: Tooltip,
-          Window: _index10.default
+          VolumeBar: _index12.default,
+          Window: _index14.default
         },
         Game: {
           // DamageIndicator: DamageIndicator,
           // Minimap: Minimap,
-          NamePlate: _index12.default,
-          StatBar: _index14.default
+          NamePlate: _index16.default,
+          StatBar: _index18.default
         },
         Media: {
           // Avatar: Avatar,
           // Carousel: Carousel,
           // Icon: Icon,
           // Line: Line,
-          // MusicPlayer: MusicPlayer,
+          MusicPlayer: _index20.default,
           // Shape: Shape,
-          // VideoPlayer: VideoPlayer,
+          VideoPlayer: _index22.default
         }
       };
 
@@ -840,9 +938,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /***/ }),
 /* 3 */
-/*!*************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/Utility/index.js ***!
-  \*************************************************************************************/
+/*!*********************************!*\
+  !*** ./src/js/Utility/index.js ***!
+  \*********************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -852,9 +950,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 /***/ }),
 /* 4 */
-/*!**************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Loader/index.js ***!
-  \**************************************************************************************************/
+/*!**********************************************!*\
+  !*** ./src/js/Components/UI/Loader/index.js ***!
+  \**********************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -931,9 +1029,9 @@ exports.default = _class;
 
 /***/ }),
 /* 5 */
-/*!*****************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Loader/template.js ***!
-  \*****************************************************************************************************/
+/*!*************************************************!*\
+  !*** ./src/js/Components/UI/Loader/template.js ***!
+  \*************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -950,9 +1048,9 @@ exports.default = {
 
 /***/ }),
 /* 6 */
-/*!**************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Marker/index.js ***!
-  \**************************************************************************************************/
+/*!**********************************************!*\
+  !*** ./src/js/Components/UI/Marker/index.js ***!
+  \**********************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -984,6 +1082,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+// allow for fixing to the UI and point toward the owner/target position
 var _class = function (_WebComponent) {
   _inherits(_class, _WebComponent);
 
@@ -1006,6 +1105,8 @@ var _class = function (_WebComponent) {
         var container = this._.el.container;
 
         this._.el.text = container.querySelector('.text');
+        this._.el.outerArrow = container.querySelector('.arrow-outer');
+        this._.el.innerArrow = this._.el.outerArrow.querySelector('.arrow-inner');
       }
     }
   }, {
@@ -1015,6 +1116,36 @@ var _class = function (_WebComponent) {
 
       if (typeof this._.options.text === 'string' && this._.options.text !== '') {
         this._.el.text.textContent = this._.options.text;
+      }
+    }
+
+    /**
+     * {
+     *   colors: {
+     *     primary: '#000000',
+     *     secondary: '#000000',
+     *   }
+     *
+     * }
+     */
+
+  }, {
+    key: 'theme',
+    value: function theme(_theme) {
+      if (!_theme) {
+        return false;
+      }
+
+      if (_theme.colors) {
+        if (_theme.colors.primary) {
+          this._.el.container.style['background-color'] = _theme.colors.primary;
+          this._.el.outerArrow.style['border-color'] = _theme.colors.primary + ' transparent transparent transparent';
+        }
+
+        if (_theme.colors.secondary) {
+          this._.el.text.style['background-color'] = _theme.colors.secondary;
+          this._.el.innerArrow.style['border-color'] = _theme.colors.secondary + ' transparent transparent transparent';
+        }
       }
     }
   }, {
@@ -1031,9 +1162,9 @@ exports.default = _class;
 
 /***/ }),
 /* 7 */
-/*!*****************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Marker/template.js ***!
-  \*****************************************************************************************************/
+/*!*************************************************!*\
+  !*** ./src/js/Components/UI/Marker/template.js ***!
+  \*************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1045,14 +1176,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  default: "<div class=\"marker\" data-pid=[$pid]>\n    <div class=\"text\"></div>\n  </div>"
+  default: "<div class=\"marker\" data-pid=[$pid]>\n    <div class=\"text\"></div>\n    <div class=\"arrow-outer\">\n      <div class=\"arrow-inner\"></div<\n    </div>\n  </div>"
 };
 
 /***/ }),
 /* 8 */
-/*!**************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Switch/index.js ***!
-  \**************************************************************************************************/
+/*!***********************************************!*\
+  !*** ./src/js/Components/UI/SeekBar/index.js ***!
+  \***********************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1073,6 +1204,206 @@ var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
 var _template = __webpack_require__(/*! ./template.js */ 9);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * events
+ * positionset
+ */
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.seek-bar').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default'],
+      position: 0,
+      mouseDown: false
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.seek-bar');
+
+      if (this._.el.container !== null) {
+        var container = this._.el.container;
+
+        this._.el.progress = container.querySelector('.progress');
+        this._.el.buffer = container.querySelector('.buffer');
+        this._.el.bar = container.querySelector('.bar');
+        this._.el.scrubber = container.querySelector('.scrubber');
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      var _this2 = this;
+
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+      var progress = this._.el.progress;
+
+      container.addEventListener('mousedown', function (ev) {
+        _this2._.mouseDown = true;
+      });
+
+      document.addEventListener('mouseup', function (ev) {
+        _this2._.mouseDown = false;
+        if (ev.target === progress) {
+          _this2.setPosition(ev.layerX, false, true);
+        }
+      });
+
+      document.addEventListener('mousemove', function (ev) {
+        if (_this2._.mouseDown === true && ev.target === progress) {
+
+          _this2.setPosition(ev.layerX);
+        }
+      });
+    }
+  }, {
+    key: 'updateBuffer',
+    value: function updateBuffer(bf, currentTime, duration) {
+      var seekbar = this._.el.container;
+      var inc = seekbar.offsetWidth / duration;
+      var bfMaxLen = 10;
+
+      if (bf.length > 0) {
+        var buffers = this._.el.buffer.querySelectorAll('.bar');
+        var lenBuffers = buffers.length;
+        for (var index = 0; index < lenBuffers; index++) {
+          var lastItem = buffers.item(lenBuffers);
+          if (lastItem !== null) {
+            lastItem.parentElement.removeChild(lastItem);
+          }
+        }
+
+        for (var _index = 0; _index < Math.min(bf.length, bfMaxLen); _index++) {
+          var start = bf.start(_index) * inc;
+          var end = bf.end(_index) * inc;
+          var width = end - start;
+          // bfs.push({
+          //   index: index,
+          //   start: start,
+          //   end: end,
+          //   width: width,
+          // });
+
+          this.buffer(_index, start + 'px', end + 'px', width + 'px');
+        }
+      }
+    }
+  }, {
+    key: 'buffer',
+    value: function buffer(index, start, end, width) {
+      var bar = this._.el.buffer.querySelector('.bar[data-id="' + index + '"]');
+      if (bar === null) {
+        bar = this._.el.buffer.insertAdjacentHTML('beforeend', '<div class="bar" data-id="' + index + '"></div>');
+        bar = this._.el.buffer.querySelector('.bar:last-child');
+      }
+
+      if (bar.style.left !== start) {
+        bar.style.left = start;
+      }
+
+      if (bar.style.width !== width) {
+        bar.style.width = width;
+      }
+    }
+  }, {
+    key: 'setPosition',
+    value: function setPosition(position, isPercentage, manualUpdate) {
+      isPercentage = isPercentage || false;
+      var value = position;
+      if (isPercentage === true) {
+        position = Math.floor(parseInt(this._.el.progress.offsetWidth) / 100 * position);
+      }
+
+      var event = 'setPosition';
+      if (manualUpdate === true) {
+        event = 'seekupdate';
+      }
+
+      this.trigger(event, {
+        value: isPercentage ? value : position,
+        percentage: isPercentage ? position : Math.floor(100 / parseInt(this._.el.progress.offsetWidth) * position)
+      });
+
+      this._.el.bar.style.width = position + 'px';
+
+      return this;
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 9 */
+/*!**************************************************!*\
+  !*** ./src/js/Components/UI/SeekBar/template.js ***!
+  \**************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"seek-bar\">\n    <div class=\"progress\">\n      <div class=\"buffer\"></div>\n      <div class=\"bar\">\n        <div class=\"scrubber\"></div>\n      </div>\n    </div>\n  </div>"
+};
+
+/***/ }),
+/* 10 */
+/*!**********************************************!*\
+  !*** ./src/js/Components/UI/Switch/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 11);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1140,10 +1471,10 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 9 */
-/*!*****************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Switch/template.js ***!
-  \*****************************************************************************************************/
+/* 11 */
+/*!*************************************************!*\
+  !*** ./src/js/Components/UI/Switch/template.js ***!
+  \*************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1159,10 +1490,10 @@ exports.default = {
 };
 
 /***/ }),
-/* 10 */
-/*!**************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Window/index.js ***!
-  \**************************************************************************************************/
+/* 12 */
+/*!*************************************************!*\
+  !*** ./src/js/Components/UI/VolumeBar/index.js ***!
+  \*************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1182,7 +1513,193 @@ var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 11);
+var _template = __webpack_require__(/*! ./template.js */ 13);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.volume-bar').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default'],
+      volume: 100,
+      mouseDown: false
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.volume-bar');
+
+      if (this._.el.container !== null) {
+        var container = this._.el.container;
+
+        this._.el.back = container.querySelector('.back');
+        this._.el.fill = container.querySelector('.fill');
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      var _this2 = this;
+
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+
+      container.addEventListener('mousedown', function (ev) {
+        _this2._.mouseDown = true;
+      });
+
+      document.addEventListener('mouseup', function (ev) {
+        _this2._.mouseDown = false;
+        if (ev.target === container) {
+          var volume = _this2.setVolume(ev.layerX);
+        }
+      });
+
+      document.addEventListener('mousemove', function (ev) {
+        if (_this2._.mouseDown === true && ev.target === container) {
+
+          var volume = _this2.setVolume(ev.layerX);
+        }
+      });
+
+      if (this._.options.styles instanceof Object) {
+        if (this._.options.styles.width) {
+          this._.el.back.style['border-left-width'] = this._.options.styles.width;
+          this._.el.fill.style['border-left-width'] = this._.options.styles.width;
+        }
+
+        if (this._.options.styles.height) {
+          this._.el.back.style['border-bottom-width'] = this._.options.styles.height;
+          this._.el.fill.style['border-bottom-width'] = this._.options.styles.height;
+        }
+      }
+    }
+  }, {
+    key: 'getVolume',
+    value: function getVolume() {
+      return this._.volume;
+    }
+  }, {
+    key: 'setVolume',
+    value: function setVolume(fillPx, isPercentage) {
+      isPercentage = isPercentage || false;
+      var container = this._.el.container;
+      var height = parseInt(container.offsetHeight);
+      var width = parseInt(container.offsetWidth);
+      var perc = fillPx;
+      if (!isPercentage) {
+        perc = 100 / width * fillPx;
+      } else {
+        fillPx = width / 100 * perc;
+      }
+      var vertPoint = height / 100 * perc;
+
+      this._.volume = perc;
+
+      this.setFill(fillPx, vertPoint);
+
+      this.trigger('setVolume', {
+        volume: perc / 100,
+        percentage: perc,
+        width: fillPx + 'px'
+      });
+
+      return perc;
+    }
+  }, {
+    key: 'setFill',
+    value: function setFill(fillPx, vertPoint) {
+      var height = parseInt(this._.el.container.offsetHeight);
+      this._.el.fill.style['border-bottom-width'] = vertPoint + 'px';
+      this._.el.fill.style['border-left-width'] = fillPx + 'px';
+      this._.el.fill.style['margin-top'] = height - vertPoint + 'px';
+    }
+  }, {
+    key: 'toggleVolume',
+    value: function toggleVolume() {
+      if (this._.volume === 0) {
+        this._.volume = this._.unMuteVolume;
+      } else {
+        this._.unMuteVolume = this._.volume;
+        this._.volume = 0;
+      }
+
+      this.setVolume(this._.volume, true);
+      return this._.volume;
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 13 */
+/*!****************************************************!*\
+  !*** ./src/js/Components/UI/VolumeBar/template.js ***!
+  \****************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"volume-bar\">\n    <div class=\"back\"></div>\n    <div class=\"fill\"></div>\n  </div>"
+};
+
+/***/ }),
+/* 14 */
+/*!**********************************************!*\
+  !*** ./src/js/Components/UI/Window/index.js ***!
+  \**********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 15);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1316,10 +1833,10 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 11 */
-/*!*****************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/UI/Window/template.js ***!
-  \*****************************************************************************************************/
+/* 15 */
+/*!*************************************************!*\
+  !*** ./src/js/Components/UI/Window/template.js ***!
+  \*************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1339,10 +1856,10 @@ exports.default = {
 };
 
 /***/ }),
-/* 12 */
-/*!*******************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/Game/NamePlate/index.js ***!
-  \*******************************************************************************************************/
+/* 16 */
+/*!***************************************************!*\
+  !*** ./src/js/Components/Game/NamePlate/index.js ***!
+  \***************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1362,7 +1879,7 @@ var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 13);
+var _template = __webpack_require__(/*! ./template.js */ 17);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1455,10 +1972,10 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 13 */
-/*!**********************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/Game/NamePlate/template.js ***!
-  \**********************************************************************************************************/
+/* 17 */
+/*!******************************************************!*\
+  !*** ./src/js/Components/Game/NamePlate/template.js ***!
+  \******************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1474,10 +1991,10 @@ exports.default = {
 };
 
 /***/ }),
-/* 14 */
-/*!*****************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/Game/StatBar/index.js ***!
-  \*****************************************************************************************************/
+/* 18 */
+/*!*************************************************!*\
+  !*** ./src/js/Components/Game/StatBar/index.js ***!
+  \*************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1497,7 +2014,7 @@ var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 15);
+var _template = __webpack_require__(/*! ./template.js */ 19);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1691,10 +2208,10 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 15 */
-/*!********************************************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/js/components/Game/StatBar/template.js ***!
-  \********************************************************************************************************/
+/* 19 */
+/*!****************************************************!*\
+  !*** ./src/js/Components/Game/StatBar/template.js ***!
+  \****************************************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1710,16 +2227,707 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
-/*!*********************************************************************************!*\
-  !*** J:/Dropbox/Projects/development/Phaser Web Components/src/sass/index.scss ***!
-  \*********************************************************************************/
+/* 20 */
+/*!******************************************************!*\
+  !*** ./src/js/Components/Media/MusicPlayer/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 21);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.music-player').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.music-player');
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 21 */
+/*!*********************************************************!*\
+  !*** ./src/js/Components/Media/MusicPlayer/template.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: ""
+};
+
+/***/ }),
+/* 22 */
+/*!******************************************************!*\
+  !*** ./src/js/Components/Media/VideoPlayer/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template2 = __webpack_require__(/*! ./template.js */ 23);
+
+var _template3 = _interopRequireDefault(_template2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// Events: https://developer.mozilla.org/en-US/docs/Web/Guide/Events/Media_events
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    var _ret;
+
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.video-player').length;
+
+    var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template3.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default'],
+      options: {
+        videoOptions: {
+          width: '400px',
+          startPosition: 0
+        },
+        onControls: false,
+        hideDelay: 0.5,
+        hideTimeout: undefined
+      }
+    }));
+
+    return _ret = _this, _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      var _this2 = this;
+
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.video-player');
+
+      if (this._.el.container !== null) {
+        var container = this._.el.container;
+
+        this._.el.title = container.querySelector('.title');
+        this._.el.player = container.querySelector('.player');
+
+        this._.el.video = this._.el.player.querySelector('video.video');
+        this._.el.play = this._.el.player.querySelector('.play.big');
+        this._.el.controls = this._.el.player.querySelector('.controls');
+
+        this._.el.btnPlay = this._.el.controls.querySelector('button.play');
+        this._.el.btnPause = this._.el.controls.querySelector('button.pause');
+        this._.el.btnRestart = this._.el.controls.querySelector('button.restart');
+        this._.el.btnStop = this._.el.controls.querySelector('button.stop');
+        this._.el.btnFullscreen = this._.el.controls.querySelector('button.fullscreen');
+        this._.el.btnMute = this._.el.controls.querySelector('button.mute');
+
+        this._.el.seekbar = this.game.add.existing(new this.game.PhaserWebComponents.components.UI.SeekBar({
+          game: this.game,
+          target: this._.el.controls.querySelector('[data-replace="seekbar"]'),
+          events: {
+            seekupdate: function seekupdate(name, data) {
+              var isPlaying = _this2.isPlaying();
+              _this2.pause();
+
+              var seconds = _this2._.el.video.duration / 100 * data.detail.percentage;
+              _this2._.el.video.currentTime = seconds;
+
+              var icon = _this2._.el.play;
+              var iconClass = {
+                old: [_this2._.options.videoOptions.icons.classes.pause, _this2._.options.videoOptions.icons.classes.play],
+                new: _this2._.options.videoOptions.icons.classes.loading
+              };
+
+              _this2.removeClass(icon.querySelector('i.fa'), iconClass.old);
+              _this2.addClass(icon.querySelector('i.fa'), iconClass.new);
+              _this2.removeClass(_this2._.el.btnPlay.querySelector('i.fa'), iconClass.old);
+              _this2.addClass(_this2._.el.btnPlay.querySelector('i.fa'), iconClass.new);
+
+              if (isPlaying === true) {
+                _this2.play();
+              }
+            }
+          },
+          options: {}
+        }));
+
+        this._.el.volumebar = this.game.add.existing(new this.game.PhaserWebComponents.components.UI.VolumeBar({
+          game: this.game,
+          target: this._.el.controls.querySelector('[data-replace="volumebar"]'),
+          events: {
+            setVolume: function setVolume(name, data) {
+              _this2.setVolume(data.detail.volume);
+            }
+          },
+          options: {
+            styles: {
+              width: '50px',
+              height: '10px'
+            }
+          }
+        }));
+
+        this._.el.volumebar.setVolume(this._.options.videoOptions.volume || 100, true);
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      var _this3 = this,
+          _arguments = arguments;
+
+      if (this._.el.video !== null) {
+        this._.el.video.controls = false;
+
+        var events = ['abort', 'canplay', 'canplaythrough', 'durationchange', 'emptied', 'encrypted', 'ended', 'error', 'interruptbegin', 'interruptend', 'loadeddata', 'loadedmetadata', 'loadstart', 'mozaudioavailable', 'pause', 'play', 'playing', 'progress', 'ratechange', 'seeked', 'seeking', 'stalled', 'suspend', 'timeupdate', 'volumechange', 'waiting'];
+
+        events.forEach(function (event) {
+          _this3._.el.video.addEventListener(event, function (ev) {
+            _this3.trigger.apply(_this3, [event].concat(Array.prototype.slice.call(_arguments)));
+          }, false);
+        });
+
+        this._.el.player.addEventListener('mouseenter', function (ev) {
+          ev.stopPropagation();
+          if (_this3._.options.hideTimeout) {
+            clearTimeout(_this3._.options.hideTimeout);
+          }
+
+          // if (parseFloat(this.el.playIcon.style.opacity) !== 0.0) {
+          //   var icon = this._.el.play.querySelector('i.fa');
+          //   icon.classList.add('fa-play');
+          //   icon.classList.remove('fa-pause');
+          // }
+
+          _this3.showControls();
+          _this3._.options.onControls = true;
+        }, false);
+
+        this._.el.player.addEventListener('mouseleave', function (ev) {
+          ev.stopPropagation();
+          if (_this3._.options.hideTimeout) {
+            clearTimeout(_this3._.options.hideTimeout);
+          }
+
+          // if (parseFloat(this.el.playIcon.style.opacity) !== 0.0) {
+          //   var icon = this.el.playIcon.querySelector('i.fa');
+          //   icon.classList.remove('fa-play');
+          //   icon.classList.add('fa-pause');
+          // }
+
+          _this3._.options.hideTimeout = setTimeout(function () {
+            console.log(_this3);
+            _this3.hideControls();
+          }, _this3._.options.hideDelay * 1000);
+          _this3._.options.onControls = false;
+        }, false);
+
+        this._.el.video.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.togglePlay();
+        }, false);
+        this._.el.play.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.play();
+        }, false);
+        this._.el.btnPlay.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.play();
+        }, false);
+        this._.el.btnPause.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.pause();
+        }, false);
+        this._.el.btnRestart.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.restart();
+        }, false);
+        this._.el.btnStop.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.stop();
+        }, false);
+        this._.el.btnFullscreen.addEventListener('click', function (ev) {
+          ev.preventDefault();
+          ev.stopPropagation();
+          _this3.fullscreen();
+        }, false);
+
+        this._.el.btnMute.addEventListener('click', function (ev) {
+          var volume = _this3._.el.volumebar.toggleVolume();
+        }, false);
+
+        this.on('timeupdate', function (ev) {
+          if (_this3._.el.seekbar) {
+            var percentage = _this3.getCurrentTime(true);
+            _this3.setSeekbarPosition(percentage);
+          }
+        });
+
+        this.on('ended', function (ev) {
+          _this3.pause();
+        });
+
+        this.on('progress', function () {
+          // TODO: Finish update buffer.
+          // let video = this._.el.video;
+          // let bf = video.buffered;
+          // this._.el.seekbar.updateBuffer(bf, video.currentTime, video.duration);
+        });
+
+        var videoOptions = this._.options.videoOptions;
+        if (this.isObject(videoOptions) && this.isArray(videoOptions.sources) && videoOptions.sources.length > 0) {
+
+          if (videoOptions.title) {
+            var anchor = this._.el.title.querySelector('a');
+
+            anchor.textContent = videoOptions.title;
+            if (videoOptions.link) {
+              anchor.setAttribute('src', videoOptions.link);
+            }
+          }
+
+          if (videoOptions.width) {
+            this._.el.player.style.width = videoOptions.width;
+          }
+
+          videoOptions.sources.forEach(function (source) {
+            var filename = _this3.getFilename(source);
+            var mimetype = _this3.getMimeType(filename);
+            _this3._.el.video.insertAdjacentHTML('beforeend', '<source src="' + source + '" type="' + mimetype + '"></source>');
+          });
+
+          if (videoOptions.icons.template && Object.keys(videoOptions.icons.classes).length > 0) {
+            var _template = videoOptions.icons.template;
+            var classes = videoOptions.icons.classes;
+
+            if (classes.play) {
+              this._.el.play.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.big ? classes.big + ' ' : '') + classes.play));
+              this._.el.btnPlay.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.small ? classes.small + ' ' : '') + classes.play));
+            }
+
+            if (classes.pause) {
+              this._.el.btnPause.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.small ? classes.small + ' ' : '') + classes.pause));
+            }
+
+            if (classes.restart) {
+              this._.el.btnRestart.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.small ? classes.small + ' ' : '') + classes.restart));
+            }
+
+            if (classes.stop) {
+              this._.el.btnStop.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.small ? classes.small + ' ' : '') + classes.stop));
+            }
+
+            if (classes.fullscreen) {
+              this._.el.btnFullscreen.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.small ? classes.small + ' ' : '') + classes.fullscreen));
+            }
+
+            if (classes.mute) {
+              this._.el.btnMute.insertAdjacentHTML('beforeend', _template.replace('[$icon]', (classes.small ? classes.small + ' ' : '') + classes.mute));
+            }
+          }
+
+          this.on('pause', function () {
+            var icon = _this3._.el.play;
+            var iconClass = {
+              old: [_this3._.options.videoOptions.icons.classes.loading, _this3._.options.videoOptions.icons.classes.pause],
+              new: _this3._.options.videoOptions.icons.classes.play
+            };
+
+            _this3.removeClass(icon.querySelector('i.fa'), iconClass.old);
+            _this3.addClass(icon.querySelector('i.fa'), iconClass.new);
+
+            _this3.addClass(_this3._.el.btnPause, 'hidden');
+            if (_this3._.el.video.currentTime === 0) {
+              _this3.addClass(_this3._.el.btnStop, 'hidden');
+              _this3.addClass(_this3._.el.btnRestart, 'hidden');
+            }
+            _this3.removeClass(_this3._.el.btnPlay, 'hidden');
+            _this3._.el.play.style.opacity = '0.6';
+          });
+
+          this.on('playing', function () {
+            var icon = _this3._.el.play;
+            var iconClass = {
+              old: [_this3._.options.videoOptions.icons.classes.loading, _this3._.options.videoOptions.icons.classes.play],
+              new: _this3._.options.videoOptions.icons.classes.pause
+            };
+
+            _this3.removeClass(icon.querySelector('i.fa'), iconClass.old);
+            _this3.removeClass(icon.querySelector('i.fa'), iconClass.new);
+            _this3.removeClass(icon.querySelector('i.fa'), 'hidden');
+
+            _this3.removeClass(_this3._.el.btnStop, 'hidden');
+            _this3.removeClass(_this3._.el.btnRestart, 'hidden');
+            _this3.removeClass(_this3._.el.btnPause, 'hidden');
+            _this3.addClass(_this3._.el.btnPlay, 'hidden');
+
+            _this3._.el.play.style.opacity = '0';
+          });
+
+          this.on('emptied', function () {
+            var icon = _this3._.el.play;
+            var iconClass = {
+              old: [_this3._.options.videoOptions.icons.classes.pause, _this3._.options.videoOptions.icons.classes.play],
+              new: _this3._.options.videoOptions.icons.classes.loading
+            };
+
+            _this3.removeClass(icon.querySelector('i.fa'), iconClass.old);
+            _this3.addClass(icon.querySelector('i.fa'), iconClass.new);
+            _this3.removeClass(_this3._.el.btnPlay.querySelector('i.fa'), iconClass.old);
+            _this3.addClass(_this3._.el.btnPlay.querySelector('i.fa'), iconClass.new);
+          });
+
+          this.on('loadstart', function () {
+            var icon = _this3._.el.play;
+            var iconClass = {
+              old: [_this3._.options.videoOptions.icons.classes.pause, _this3._.options.videoOptions.icons.classes.play],
+              new: _this3._.options.videoOptions.icons.classes.loading
+            };
+
+            _this3.removeClass(icon.querySelector('i.fa'), iconClass.old);
+            _this3.addClass(icon.querySelector('i.fa'), iconClass.new);
+            _this3.removeClass(_this3._.el.btnPlay.querySelector('i.fa'), iconClass.old);
+            _this3.addClass(_this3._.el.btnPlay.querySelector('i.fa'), iconClass.new);
+          });
+
+          this.on('canplay', function () {
+            var icon = _this3._.el.play;
+            var iconClass = {
+              old: [_this3._.options.videoOptions.icons.classes.loading, _this3._.options.videoOptions.icons.classes.play, _this3._.options.videoOptions.icons.classes.pause]
+            };
+            _this3.removeClass(icon.querySelector('i.fa'), iconClass.old);
+            _this3.removeClass(_this3._.el.btnPlay.querySelector('i.fa'), iconClass.old);
+            _this3.addClass(_this3._.el.btnPlay.querySelector('i.fa'), _this3._.options.videoOptions.icons.classes.play);
+
+            if (_this3.isPlaying() === true) {
+              _this3.addClass(icon.querySelector('i.fa'), _this3._.options.videoOptions.icons.classes.pause);
+            } else {
+              _this3.addClass(icon.querySelector('i.fa'), _this3._.options.videoOptions.icons.classes.play);
+            }
+          });
+
+          this.on('durationchange', function () {
+            if (videoOptions.startPosition !== 0) {
+              _this3._.el.video.currentTime = videoOptions.startPosition;
+              var perc = _this3.getCurrentTime(true);
+              _this3.setSeekbarPosition(perc, true);
+            }
+
+            if (videoOptions.autoPlay === true) {
+              _this3.play();
+            }
+          });
+        }
+      } else {}
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }, {
+    key: 'canPlayVideo',
+    value: function canPlayVideo(player, ext) {
+      if (this._.el.video !== null) {
+        var ableToPlay = this._.el.video.canPlayType('video/' + ext);
+        if (ableToPlay === '') {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+  }, {
+    key: 'getCurrentTime',
+    value: function getCurrentTime(asPercentage) {
+      var currentTime = this._.el.video.currentTime;
+      var duration = this._.el.video.duration;
+      asPercentage = asPercentage || false;
+
+      if (asPercentage) {
+        var perc = Math.floor(100 / duration * currentTime) || 0.0;
+        return perc;
+      }
+      return currentTime;
+    }
+  }, {
+    key: 'getFilename',
+    value: function getFilename(fullpath) {
+      return fullpath.replace(/^.*[\\\/]/, '');
+    }
+  }, {
+    key: 'getMimeType',
+    value: function getMimeType(filename) {
+      var ext = filename.split('.').pop();
+      var mimeTypes = {
+        'flv': 'video/x-flv',
+        'mp4': 'video/mp4',
+        'm3u8': 'application/x-mpegURL',
+        'ts': 'video/MP2T',
+        '3gp': 'video/3gpp',
+        'mov': 'video/quicktime',
+        'avi': 'video/x-msvideo',
+        'wmv': 'video/x-ms-wmv',
+        'ogg': 'video/ogg',
+        'ogv': 'video/ogg'
+      };
+
+      if (Object.keys(mimeTypes).indexOf(ext) !== -1) {
+        return mimeTypes[ext];
+      }
+      return false;
+    }
+  }, {
+    key: 'hideControls',
+    value: function hideControls() {
+      if (this._.options.hideTimeout) {
+        clearTimeout(this._.options.hideTimeout);
+      }
+      console.log(this._.options);
+      if (!this._.options.onControls) {
+        var controls = this._.el.controls;
+        var rect = controls.getBoundingClientRect();
+        controls.style.borderTopWidth = '8px';
+        controls.style.bottom = -(rect.height - 2) + 'px';
+        console.log(-(rect.height - 2));
+      }
+    }
+  }, {
+    key: 'showControls',
+    value: function showControls() {
+      var controls = this._.el.controls;
+      controls.style.borderTopWidth = '2px';
+      controls.style.bottom = '0px';
+    }
+  }, {
+    key: 'isPlaying',
+    value: function isPlaying() {
+      var video = this._.el.video;
+      return video.currentTime > 0 && !video.paused && !video.ended && video.readyState > 2;
+    }
+  }, {
+    key: 'play',
+    value: function play() {
+      var icon = this._.el.play;
+      if (this.hasClass(icon.querySelector('i.fa'), this._.options.videoOptions.icons.classes.loading)) {
+        return false;
+      }
+      if (!this.isPlaying()) {
+        this._.el.video.play();
+      }
+    }
+  }, {
+    key: 'pause',
+    value: function pause(force) {
+      var icon = this._.el.play;
+      force = force || false;
+      if (this.hasClass(icon, this._.options.videoOptions.icons.classes.loading)) {
+        return false;
+      }
+      if (force === true || this.isPlaying()) {
+        this._.el.video.pause();
+      }
+    }
+  }, {
+    key: 'togglePlay',
+    value: function togglePlay() {
+      if (this._.el.video.paused || this._.el.video.ended) {
+        this.play();
+      } else {
+        this.pause();
+      }
+    }
+  }, {
+    key: 'restart',
+    value: function restart() {
+      this._.el.video.currentTime = 0;
+      if (!this.isPlaying()) {
+        this.play();
+      } else {
+        this.pause(true);
+      }
+    }
+  }, {
+    key: 'stop',
+    value: function stop() {
+      this.pause(true);
+      this._.el.video.currentTime = 0;
+    }
+  }, {
+    key: 'fullscreen',
+    value: function fullscreen() {
+      var player = this._.el.player;
+      // var docElm = document.documentElement;
+      var isInFullScreen = document.fullscreenElement && document.fullscreenElement !== null || document.webkitFullscreenElement && document.webkitFullscreenElement !== null || document.mozFullScreenElement && document.mozFullScreenElement !== null || document.msFullscreenElement && document.msFullscreenElement !== null;
+      // var icon = this._.el.btnFullscreen.querySelector('i.fa');
+
+
+      if (!isInFullScreen) {
+        // icon.classList.add('fa-compress');
+        // icon.classList.remove('fa-expand');
+        player.classList.add('fullscreen');
+        if (player.requestFullscreen) {
+          player.requestFullscreen();
+        } else if (player.mozRequestFullScreen) {
+          player.mozRequestFullScreen();
+        } else if (player.webkitRequestFullscreen) {
+          player.webkitRequestFullscreen();
+        } else if (player.msRequestFullscreen) {
+          player.msRequestFullscreen();
+        }
+      } else {
+        player.classList.remove('fullscreen');
+        // icon.classList.add('fa-expand');
+        // icon.classList.remove('fa-compress');
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen();
+        }
+      }
+    }
+  }, {
+    key: 'setSeekbarPosition',
+    value: function setSeekbarPosition(position, isPercentage) {
+      isPercentage = isPercentage || false;
+      this._.el.seekbar.setPosition(position, true);
+    }
+  }, {
+    key: 'setVolume',
+    value: function setVolume(vol) {
+      vol = parseFloat(vol).toFixed(2);
+      if (vol === 0.0) {
+        this.addClass(this._.el.btnMute.querySelector('i.fa'), this._.options.videoOptions.icons.classes.mute);
+      } else {
+        this.addClass(this._.el.btnMute.querySelector('i.fa'), this._.options.videoOptions.icons.classes.volume);
+      }
+      this._.el.video.volume = vol;
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 23 */
+/*!*********************************************************!*\
+  !*** ./src/js/Components/Media/VideoPlayer/template.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"video-player\">\n    <div class=\"title\">\n      <a></a>\n    </div>\n    <div class=\"player\">\n      <video class=\"video\"></video>\n      <div class=\"play big\"></div>\n      <div class=\"controls\">\n        <div data-replace=\"seekbar\"></div>\n        <button class=\"play\"></button>\n        <button class=\"pause hidden\"></button>\n        <button class=\"restart hidden\"></button>\n        <button class=\"stop hidden\"></button>\n        <button class=\"fullscreen\"></button>\n        <div data-replace=\"volumebar\"></div>\n        <button class=\"mute\"></button>\n      </div>\n    </div>\n  </div>"
+};
+
+/***/ }),
+/* 24 */
+/*!*****************************!*\
+  !*** ./src/sass/index.scss ***!
+  \*****************************/
 /*! no static exports found */
 /*! all exports used */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"resizer":"resizer","left":"left","right":"right","top":"top","bottom":"bottom","loader":"loader","circle":"circle","rotation":"rotation","color":"color","marker":"marker","text":"text","switch":"switch","backdrop":"backdrop","alert":"alert","active":"active","header":"header","icon":"icon","title":"title","title-text":"title-text","controls":"controls","control":"control","body":"body","window":"window","panel":"panel","name-plate":"name-plate","display":"display","overlay":"overlay","stat-bar":"stat-bar","dark-background":"dark-background","big":"big","bar":"bar","value":"value","max":"max"};
+module.exports = {"hidden":"hidden","resizer":"resizer","left":"left","right":"right","top":"top","bottom":"bottom","loader":"loader","circle":"circle","rotation":"rotation","color":"color","marker":"marker","arrow-outer":"arrow-outer","arrow-inner":"arrow-inner","text":"text","seek-bar":"seek-bar","progress":"progress","buffer":"buffer","bar":"bar","scrubber":"scrubber","switch":"switch","volume-bar":"volume-bar","back":"back","fill":"fill","backdrop":"backdrop","alert":"alert","active":"active","header":"header","icon":"icon","title":"title","title-text":"title-text","controls":"controls","control":"control","body":"body","window":"window","panel":"panel","name-plate":"name-plate","display":"display","overlay":"overlay","stat-bar":"stat-bar","dark-background":"dark-background","big":"big","value":"value","max":"max","video-player":"video-player","player":"player","fullscreen":"fullscreen","video":"video","play":"play","fa":"fa","fa-play":"fa-play","mute":"mute"};
 
 /***/ })
 ],[1]);

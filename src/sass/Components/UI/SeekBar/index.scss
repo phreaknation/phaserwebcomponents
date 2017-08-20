@@ -1,0 +1,52 @@
+.seek-bar {
+
+  .progress {
+    background-color: rgba(32, 128, 32, 0.3);
+    display: block;
+    height: 8px; width: 100%;
+    position: relative;
+    margin-bottom: 10px;
+    user-select: none;
+    vertical-align: bottom;
+
+    .buffer {
+      height: 100%; width: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0;
+      user-select: none;
+
+      .bar {
+        background-color: rgba(255, 255, 255, 0.25);
+        height: 100%; width: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0; left: 0;
+        user-select: none;
+        @include transition(right 0.15s);
+      }
+    }
+
+    > .bar {
+      background-color: rgba(32, 128, 32, 0.75);
+      height: 100%; width: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0; left: 0;
+      user-select: none;
+      @include transition(right 0.15s);
+
+      .scrubber {
+        background-color: rgba(32, 128, 32, 1);
+        border-radius: 50%;
+        cursor: pointer;
+        display: inline-block;
+        height: 12px; width: 12px;
+        position: absolute;
+        right: -6px; top: -2px;
+        user-select: none;
+        @include transition(left 0.15s);
+      }
+    }
+  }
+}

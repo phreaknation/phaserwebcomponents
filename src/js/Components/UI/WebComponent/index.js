@@ -28,7 +28,11 @@ export default class extends Phaser.Sprite {
       ownerPrevPosition: {
         x: null,
         y: null
-      }
+      },
+      cameraPrevPosition: {
+        x: null,
+        y: null
+      },
     };
 
     this.CEIL = 'ceil';
@@ -61,7 +65,7 @@ export default class extends Phaser.Sprite {
     this.exists = false;
     this.alive = false;
 
-    if (!this._.interactions) {
+    if (!this._.interactions && (this._.options.moveable == true || this._.options.resizable)) {
       this._.interactions = window._PWC.registry.interactions = {};
       this._.interactions.moveable = {
         activeWindow: null,
@@ -365,6 +369,72 @@ export default class extends Phaser.Sprite {
     return valuesToUpdate;
   }
 
+  trigger(eventName, props) {
+    let event = new CustomEvent(eventName, {detail: props});
+
+    this._.el.container.dispatchEvent(event);
+  }
+
+  addClass(el, _classes) {
+    if (this.isNode(el)) {
+      if (typeof _classes === 'string') {
+        _classes.split(' ').forEach((_class) => {
+          el.classList.add(_class);
+        });
+      } else if (this.isArray(_classes)) {
+        _classes.forEach((_class) => {
+          if (typeof _class === 'string') {
+            _class.split(' ').forEach((_c) => {
+              el.classList.add(_c);
+            });
+          }
+        });
+      }
+    }
+  }
+
+  removeClass(el, _classes) {
+    if (this.isNode(el)) {
+      if (typeof _classes === 'string') {
+        _classes.split(' ').forEach((_class) => {
+          el.classList.remove(_class);
+        });
+      } else if (this.isArray(_classes)) {
+        _classes.forEach((_class) => {
+          if (typeof _class === 'string') {
+            _class.split(' ').forEach((_c) => {
+              el.classList.remove(_c);
+            });
+          }
+        });
+      }
+    }
+  }
+
+  hasClass(el, _classes) {
+    let contained = true;
+    if (this.isNode(el)) {
+      if (typeof _classes === 'string') {
+        _classes.split(' ').forEach((_class) => {
+          if (!el.classList.contains(_class)) {
+            contained = false;
+          }
+        });
+      } else if (this.isArray(_classes)) {
+        _classes.forEach((_class) => {
+          if (typeof _class === 'string') {
+            _class.split(' ').forEach((_c) => {
+              if (!el.classList.contains(_c)) {
+                contained = false;
+              }
+            });
+          }
+        });
+      }
+    }
+    return contained;
+  }
+
   // Helpers
 
   isNode (o) {
@@ -578,10 +648,20 @@ export default class extends Phaser.Sprite {
 
     let owner = this._.owner;
     if (owner && owner.alive) {
-      if (this._.ownerPrevPosition.x !== owner.position.x || this._.ownerPrevPosition.y !== owner.position.y) {
+      if ((this._.ownerPrevPosition.x !== owner.position.x ||
+            this._.ownerPrevPosition.y !== owner.position.y) ||
+          (this._.cameraPrevPosition.x !== this.game.camera.position.x ||
+            this._.cameraPrevPosition.y !== this.game.camera.position.y )) {
         this.updatePosition(positionOffset);
-        this._.ownerPrevPosition.x = owner.position.x;
-        this._.ownerPrevPosition.y = owner.position.y;
+        if (this._.ownerPrevPosition.x !== owner.position.x ||
+            this._.ownerPrevPosition.y !== owner.position.y) {
+          this._.ownerPrevPosition.x = owner.position.x;
+          this._.ownerPrevPosition.y = owner.position.y;
+        } else if (this._.cameraPrevPosition.x !== this.game.camera.position.x ||
+            this._.cameraPrevPosition.y !== this.game.camera.position.y ) {
+          this._.cameraPrevPosition.x = this._.cameraPrevPosition.x;
+          this._.cameraPrevPosition.y = this._.cameraPrevPosition.y;
+        }
       }
     }
 

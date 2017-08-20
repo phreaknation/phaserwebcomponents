@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.hidden {
+  display: none; }
+
 [data-isresizeable="true"] .resizer.left, [data-isresizeable="true"] .resizer.right {
   pointer: ew-resize; }
 
@@ -30,42 +33,42 @@
       transform: rotate(45deg); }
       .loader .circle:nth-of-type(1):before {
         animation-delay: 545ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(2) {
       transform: rotate(90deg); }
       .loader .circle:nth-of-type(2):before {
         animation-delay: 590ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(3) {
       transform: rotate(135deg); }
       .loader .circle:nth-of-type(3):before {
         animation-delay: 635ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(4) {
       transform: rotate(180deg); }
       .loader .circle:nth-of-type(4):before {
         animation-delay: 680ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(5) {
       transform: rotate(225deg); }
       .loader .circle:nth-of-type(5):before {
         animation-delay: 725ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(6) {
       transform: rotate(270deg); }
       .loader .circle:nth-of-type(6):before {
         animation-delay: 770ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(7) {
       transform: rotate(315deg); }
       .loader .circle:nth-of-type(7):before {
         animation-delay: 815ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:nth-of-type(8) {
       transform: rotate(360deg); }
       .loader .circle:nth-of-type(8):before {
         animation-delay: 860ms;
-        animation: rotation 3s linear infinite, color 3s linear infinite; }
+        animation: rotation 0.3s linear infinite, color 0.3s linear infinite; }
     .loader .circle:before {
       background-color: #608080;
       box-shadow: 0 0 10px 1px #608080;
@@ -106,7 +109,7 @@ body {
   min-width: 30px;
   position: absolute;
   z-index: 0; }
-  .marker:before {
+  .marker .arrow-outer {
     border-style: solid;
     border-width: 18px 10px 0 10px;
     border-color: #444 transparent transparent transparent;
@@ -117,12 +120,12 @@ body {
     width: 0;
     position: absolute;
     z-index: 0; }
-  .marker:after {
+  .marker .arrow-inner {
     border-style: solid;
     border-width: 18px 10px 0 10px;
     border-color: #888 transparent transparent transparent;
-    bottom: -11px;
-    left: calc(50% - 9px);
+    bottom: 8px;
+    left: calc(50% - 10px);
     content: '';
     height: 0;
     width: 0;
@@ -139,6 +142,65 @@ body {
     padding: 0 5px;
     position: relative;
     z-index: 1; }
+
+.seek-bar .progress {
+  background-color: rgba(32, 128, 32, 0.3);
+  display: block;
+  height: 8px;
+  width: 100%;
+  position: relative;
+  margin-bottom: 10px;
+  user-select: none;
+  vertical-align: bottom; }
+  .seek-bar .progress .buffer {
+    height: 100%;
+    width: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none; }
+    .seek-bar .progress .buffer .bar {
+      background-color: rgba(255, 255, 255, 0.25);
+      height: 100%;
+      width: 0;
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      user-select: none;
+      -moz-transition: right 0.15s;
+      -o-transition: right 0.15s;
+      -webkit-transition: right 0.15s;
+      transition: right 0.15s; }
+  .seek-bar .progress > .bar {
+    background-color: rgba(32, 128, 32, 0.75);
+    height: 100%;
+    width: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none;
+    -moz-transition: right 0.15s;
+    -o-transition: right 0.15s;
+    -webkit-transition: right 0.15s;
+    transition: right 0.15s; }
+    .seek-bar .progress > .bar .scrubber {
+      background-color: #208020;
+      border-radius: 50%;
+      cursor: pointer;
+      display: inline-block;
+      height: 12px;
+      width: 12px;
+      position: absolute;
+      right: -6px;
+      top: -2px;
+      user-select: none;
+      -moz-transition: left 0.15s;
+      -o-transition: left 0.15s;
+      -webkit-transition: left 0.15s;
+      transition: left 0.15s; }
 
 switch {
   background-color: red;
@@ -195,6 +257,35 @@ switch {
     visibility: hidden; }
     .switch input[type=checkbox]:checked + label {
       left: 43px; }
+
+.volume-bar {
+  height: 30px;
+  width: 100px;
+  margin: 0;
+  overflow: hidden;
+  position: relative; }
+  .volume-bar .back {
+    border-bottom: 30px solid #333;
+    border-left: 100px solid transparent;
+    margin: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none; }
+  .volume-bar .fill {
+    border-bottom: 30px solid #080;
+    border-left: 100px solid transparent;
+    margin: 0;
+    height: 0;
+    width: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    user-select: none; }
 
 .backdrop {
   align-items: center;
@@ -453,5 +544,99 @@ switch {
       line-height: 16px;
       pointer-events: none;
       user-select: none; }
+
+.video-player {
+  display: inline-block;
+  background-color: #101010;
+  color: #ffffff;
+  overflow: hidden;
+  margin: auto;
+  min-width: 400px;
+  z-index: 1050; }
+  .video-player .title {
+    margin: 20px; }
+    .video-player .title a {
+      color: #208020;
+      font-weight: bold;
+      text-decoration: none; }
+      .video-player .title a:hover {
+        text-decoration: underline; }
+      .video-player .title a:active {
+        color: #2aa92a; }
+      .video-player .title a:visited {
+        color: #396739; }
+  .video-player .player {
+    display: block;
+    margin: 20px 15px 10px;
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    width: calc(100% - 40px); }
+    .video-player .player.fullscreen {
+      margin: 0 !important;
+      width: initial !important; }
+    .video-player .player .video {
+      background: #000;
+      height: auto;
+      width: 100%;
+      user-select: none; }
+    .video-player .player .play.big {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 10px solid rgba(0, 0, 0, 0.8);
+      border-radius: 50%;
+      box-sizing: content-box;
+      color: rgba(0, 0, 0, 0.8);
+      height: 64px;
+      width: 82px;
+      margin: auto;
+      opacity: 0.6;
+      padding: 20px 10px;
+      pointer-events: none;
+      position: absolute;
+      text-align: center;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      user-select: none;
+      -moz-transition: opacity 0.3s;
+      -o-transition: opacity 0.3s;
+      -webkit-transition: opacity 0.3s;
+      transition: opacity 0.3s; }
+      .video-player .player .play.big i.fa.fa-play {
+        padding-left: 6px; }
+    .video-player .player .controls {
+      background: rgba(0, 0, 0, 0.4);
+      border-top: 2px outset rgba(32, 128, 32, 0.3);
+      bottom: 0px;
+      left: 0;
+      right: 0;
+      padding: 10px;
+      position: absolute;
+      user-select: none;
+      -moz-transition: bottom 0.3s, border-top-width 0.3s;
+      -o-transition: bottom 0.3s, border-top-width 0.3s;
+      -webkit-transition: bottom 0.3s, border-top-width 0.3s;
+      transition: bottom 0.3s, border-top-width 0.3s; }
+      .video-player .player .controls button {
+        background-color: rgba(32, 128, 32, 0.75);
+        border: none;
+        cursor: pointer;
+        height: 32px;
+        width: 32px;
+        user-select: none;
+        vertical-align: bottom; }
+        .video-player .player .controls button:focus {
+          outline: none; }
+        .video-player .player .controls button.fullscreen {
+          float: right; }
+        .video-player .player .controls button.mute {
+          float: right;
+          margin-right: 5px; }
+      .video-player .player .controls .volume-bar {
+        display: inline-block;
+        float: right;
+        margin-top: 22px;
+        margin-right: 5px; }
 
 /*# sourceMappingURL=phaser-web-components.css.map*/
