@@ -36,9 +36,9 @@ import Window from './Components/UI/Window/index.js';
 import NamePlate from './Components/Game/NamePlate/index.js';
 import StatBar from './Components/Game/StatBar/index.js';
 
-// import Avatar from './Components/Media/Avatar/index.js';
+import Avatar from './Components/Media/Avatar/index.js';
 // import Carousel from './Components/Media/Carousel/index.js';
-// import Icon from './Components/Media/Icon/index.js';
+import Icon from './Components/Media/Icon/index.js';
 // import Line from './Components/Media/Line/index.js';
 import MusicPlayer from './Components/Media/MusicPlayer/index.js';
 // import Shape from './Components/Media/Shape/index.js';
@@ -93,9 +93,9 @@ import VideoPlayer from './Components/Media/VideoPlayer/index.js';
           StatBar: StatBar,
         },
         Media: {
-          // Avatar: Avatar,
+          Avatar: Avatar,
           // Carousel: Carousel,
-          // Icon: Icon,
+          Icon: Icon,
           // Line: Line,
           MusicPlayer: MusicPlayer,
           // Shape: Shape,

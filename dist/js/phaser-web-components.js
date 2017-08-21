@@ -863,10 +863,8 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // import DamageIndicator from './Components/Game/DamageIndicator/index.js';
 // import Minimap from './Components/Game/Minimap/index.js';
 
-
-// import Avatar from './Components/Media/Avatar/index.js';
 // import Carousel from './Components/Media/Carousel/index.js';
-// import Icon from './Components/Media/Icon/index.js';
+
 // import Line from './Components/Media/Line/index.js';
 
 // import Shape from './Components/Media/Shape/index.js';
@@ -908,13 +906,21 @@ var _index17 = __webpack_require__(/*! ./Components/Game/StatBar/index.js */ 18)
 
 var _index18 = _interopRequireDefault(_index17);
 
-var _index19 = __webpack_require__(/*! ./Components/Media/MusicPlayer/index.js */ 20);
+var _index19 = __webpack_require__(/*! ./Components/Media/Avatar/index.js */ 29);
 
 var _index20 = _interopRequireDefault(_index19);
 
-var _index21 = __webpack_require__(/*! ./Components/Media/VideoPlayer/index.js */ 22);
+var _index21 = __webpack_require__(/*! ./Components/Media/Icon/index.js */ 31);
 
 var _index22 = _interopRequireDefault(_index21);
+
+var _index23 = __webpack_require__(/*! ./Components/Media/MusicPlayer/index.js */ 20);
+
+var _index24 = _interopRequireDefault(_index23);
+
+var _index25 = __webpack_require__(/*! ./Components/Media/VideoPlayer/index.js */ 22);
+
+var _index26 = _interopRequireDefault(_index25);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -971,13 +977,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           StatBar: _index18.default
         },
         Media: {
-          // Avatar: Avatar,
+          Avatar: _index20.default,
           // Carousel: Carousel,
-          // Icon: Icon,
+          Icon: _index22.default,
           // Line: Line,
-          MusicPlayer: _index20.default,
+          MusicPlayer: _index24.default,
           // Shape: Shape,
-          VideoPlayer: _index22.default
+          VideoPlayer: _index26.default
         }
       };
 
@@ -2992,7 +2998,229 @@ exports.default = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"hidden","resizer":"resizer","left":"left","right":"right","top":"top","bottom":"bottom","loader":"loader","circle":"circle","rotation":"rotation","color":"color","marker":"marker","arrow-outer":"arrow-outer","arrow-inner":"arrow-inner","text":"text","seek-bar":"seek-bar","progress":"progress","buffer":"buffer","bar":"bar","scrubber":"scrubber","switch":"switch","volume-bar":"volume-bar","back":"back","fill":"fill","backdrop":"backdrop","alert":"alert","active":"active","header":"header","icon":"icon","title":"title","title-text":"title-text","controls":"controls","control":"control","body":"body","window":"window","panel":"panel","name-plate":"name-plate","display":"display","overlay":"overlay","stat-bar":"stat-bar","dark-background":"dark-background","big":"big","value":"value","max":"max","video-player":"video-player","player":"player","fullscreen":"fullscreen","video":"video","play":"play","fa":"fa","fa-play":"fa-play","mute":"mute"};
+module.exports = {"hidden":"hidden","resizer":"resizer","left":"left","right":"right","top":"top","bottom":"bottom","loader":"loader","circle":"circle","rotation":"rotation","color":"color","marker":"marker","arrow-outer":"arrow-outer","arrow-inner":"arrow-inner","text":"text","seek-bar":"seek-bar","progress":"progress","buffer":"buffer","bar":"bar","scrubber":"scrubber","switch":"switch","volume-bar":"volume-bar","back":"back","fill":"fill","backdrop":"backdrop","alert":"alert","active":"active","header":"header","icon":"icon","title":"title","title-text":"title-text","controls":"controls","control":"control","body":"body","window":"window","panel":"panel","name-plate":"name-plate","display":"display","overlay":"overlay","stat-bar":"stat-bar","dark-background":"dark-background","big":"big","value":"value","max":"max","avatar":"avatar","image":"image","video-player":"video-player","player":"player","fullscreen":"fullscreen","video":"video","play":"play","fa":"fa","fa-play":"fa-play","mute":"mute"};
+
+/***/ }),
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
+/*!*************************************************!*\
+  !*** ./src/js/Components/Media/Avatar/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 30);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.avatar').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.avatar');
+
+      var container = this._.el.container;
+      if (container !== null) {
+        this._.el.image = container.querySelector('.image');
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+      if (container !== null) {
+
+        if (this._.options.defaultSource) {
+          this._.el.container.style.backgroundImage = 'url(\'' + this._.options.defaultSource + '\')';
+        }
+
+        if (this._.options.source) {
+          this._.el.image.src = this._.options.source;
+        } else {
+          this._.el.image.style.display = 'none';
+        }
+
+        if (this._.options.size) {
+          this._.el.container.style.height = this._.options.size;
+          this._.el.container.style.width = this._.options.size;
+          // this._.el.image.style.height = this._.options.size;
+          // this._.el.image.style.width = this._.options.size;
+        }
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 30 */
+/*!****************************************************!*\
+  !*** ./src/js/Components/Media/Avatar/template.js ***!
+  \****************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"avatar\" data-pid=\"[$pid]\">\n    <img src=\"[$source]\" class=\"image\" />\n  </div>"
+};
+
+/***/ }),
+/* 31 */
+/*!***********************************************!*\
+  !*** ./src/js/Components/Media/Icon/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template2 = __webpack_require__(/*! ./template.js */ 32);
+
+var _template3 = _interopRequireDefault(_template2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.icon').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template3.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.icon');
+
+      var container = this._.el.container;
+      if (container !== null) {}
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+      if (container !== null) {
+
+        var _template = this._.options.template;
+        if (typeof _template === 'string') {
+          container.insertAdjacentHTML('beforeend', _template);
+        }
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 32 */
+/*!**************************************************!*\
+  !*** ./src/js/Components/Media/Icon/template.js ***!
+  \**************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"icon\" data-pid=\"[$pid]\"></div>"
+};
 
 /***/ })
 /******/ ]);

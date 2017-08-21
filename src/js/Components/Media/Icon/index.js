@@ -12,6 +12,23 @@ export default class extends WebComponent {
 
   createComponent() {
     super.createComponent('.icon');
+
+    let container = this._.el.container;
+    if (container !== null) {
+    }
+  }
+
+  setupComponent() {
+    super.setupComponent();
+
+    let container = this._.el.container;
+    if (container !== null) {
+
+      let template = this._.options.template;
+      if (typeof template === 'string') {
+        container.insertAdjacentHTML('beforeend', template);
+      }
+    }
   }
 
   update() {
