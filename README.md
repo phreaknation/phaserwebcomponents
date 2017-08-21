@@ -12,7 +12,7 @@ License: MIT
 **[Release Schedule](https://docs.google.com/spreadsheets/d/1eEtseniccxCdf4oMH29kNmJe0vISFj0U3CQrDPnhFEY/edit?usp=sharing)**
 
 ## Including in a project
-Include the script into your html page.
+Please see the [wiki](https://github.com/phreaknation/phaserwebcomponents/wiki) on how to use the components.
 
 Required Modules:
 
