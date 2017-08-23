@@ -9,8 +9,7 @@ Help support these efforts by becoming a [Patreon](https://www.patreon.com/user?
 
 License: MIT
 
-**[Release Schedule](https://docs.google.com/spreadsheets/d/1eEtseniccxCdf4oMH29kNmJe0vISFj0U3CQrDPnhFEY/edit?usp=sharing)**
-
+**[Release Chart](https://goo.gl/hPa6wt)**
 ## Including in a project
 Please see the [wiki](https://github.com/phreaknation/phaserwebcomponents/wiki) on how to use the components.
 
