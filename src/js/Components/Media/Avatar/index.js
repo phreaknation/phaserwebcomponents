@@ -26,7 +26,7 @@ export default class extends WebComponent {
     if (container !== null) {
 
       if (this._.options.defaultSource) {
-        this._.el.container.style.backgroundImage = `url('${this._.options.defaultSource}')`;
+        container.style.backgroundImage = `url('${this._.options.defaultSource}')`;
       }
 
       if (this._.options.source) {
@@ -36,10 +36,8 @@ export default class extends WebComponent {
       }
 
       if (this._.options.size) {
-        this._.el.container.style.height = this._.options.size;
-        this._.el.container.style.width = this._.options.size;
-        // this._.el.image.style.height = this._.options.size;
-        // this._.el.image.style.width = this._.options.size;
+        container.style.height = this._.options.size;
+        container.style.width = this._.options.size;
       }
     }
   }
