@@ -28,12 +28,9 @@ export default class extends WebComponent {
     let checkbox = this._.el.checkbox;
     checkbox.addEventListener('change', function (ev) {
       if (container !== null) {
-        let event = new CustomEvent('switch', {
-          detail: {
-            checked: checkbox.checked
-          }
+        this.trigger('switch', {
+          checked: checkbox.checked
         });
-        container.dispatchEvent(event)
       }
     });
   }
