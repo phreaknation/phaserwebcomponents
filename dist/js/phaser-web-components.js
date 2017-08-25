@@ -552,6 +552,33 @@ var _class2 = function (_Phaser$Sprite) {
     // Helpers
 
   }, {
+    key: 'convertCSSUnit',
+    value: function convertCSSUnit(_from, _to) {
+      var _base = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1000;
+
+      var rx_from = /(auto|0)|([+-]?)(\d+)(px|%|cm|em|ex|in|mm|pc|pt|px|rem|vh|vw|vmin)/;
+      var rx_to = /(px|%|cm|em|ex|in|mm|pc|pt|px|rem|vh|vw|vmin)/;
+      _from = String(_from).toLowerCase();
+      _to = String(_to).toLowerCase();
+
+      var match_to = _to.match(rx_to);
+      if (typeof _from === 'string' && !this.isUndefined(match_to[1])) {
+        var match_from = _from.match(rx_from);
+
+        if (!this.isUndefined(match_from[1]) && match_from[1].toLowerCase() === 'auto' || !this.isUndefined(match_from[3]) && !this.isUndefined(match_from[4])) {
+          var body = document.querySelector('body');
+          body.insertAdjacentHTML('beforeend', '<div class="conver-css-unit" style="position: absolute; top: -99999px; visibility: hidden;">\n          <div class="_to" style="width: ' + (_base + _to) + ';"></div>\n        </div>');
+          var p = body.querySelector('.conver-css-unit');
+          var b = p.querySelector('._to');
+
+          var factor = _base / b.offsetWidth;
+          body.removeChild(p);
+          return factor * match_from[3] + _to;
+        }
+      }
+      return false;
+    }
+  }, {
     key: 'isNode',
     value: function isNode(o) {
       return (typeof Node === 'undefined' ? 'undefined' : _typeof(Node)) === "object" ? o instanceof Node : o && (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === "object" && typeof o.nodeType === "number" && typeof o.nodeName === "string";
@@ -561,6 +588,11 @@ var _class2 = function (_Phaser$Sprite) {
     value: function isElement(o) {
       return (typeof HTMLElement === 'undefined' ? 'undefined' : _typeof(HTMLElement)) === "object" ? o instanceof HTMLElement : //DOM2
       o && (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName === "string";
+    }
+  }, {
+    key: 'isUndefined',
+    value: function isUndefined(o) {
+      return o === undefined;
     }
   }, {
     key: 'isObject',
@@ -814,7 +846,7 @@ exports.default = _class2;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! J:\Dropbox\Projects\development\phaserwebcomponents\src\js\index.js */2);
-module.exports = __webpack_require__(/*! J:\Dropbox\Projects\development\phaserwebcomponents\src\sass\index.scss */24);
+module.exports = __webpack_require__(/*! J:\Dropbox\Projects\development\phaserwebcomponents\src\sass\index.scss */42);
 
 
 /***/ }),
@@ -849,25 +881,18 @@ var _createClass = function () { function defineProperties(target, props) { for 
 // import Popover from './Components/UI/Popover/index.js';
 // import ProgressBar from './Components/UI/ProgressBar/index.js';
 
-// import Showcase from './Components/UI/Showcase/index.js';
 // import Slider from './Components/UI/Slider/index.js';
 
 // import Tab from './Components/UI/Tab/index.js';
-// import Tag from './Components/UI/Tag/index.js';
+
 // import Timer from './Components/UI/Timer/index.js';
 // import Toast from './Components/UI/Toast/index.js';
 // import Toggle from './Components/UI/Toggle/index.js';
 // import Tooltip from './Components/UI/Tooltip/index.js';
 
-
-// import DamageIndicator from './Components/Game/DamageIndicator/index.js';
 // import Minimap from './Components/Game/Minimap/index.js';
 
 // import Carousel from './Components/Media/Carousel/index.js';
-
-// import Line from './Components/Media/Line/index.js';
-
-// import Shape from './Components/Media/Shape/index.js';
 
 
 var _index = __webpack_require__(/*! ./Utility/index.js */ 3);
@@ -886,41 +911,69 @@ var _index7 = __webpack_require__(/*! ./Components/UI/SeekBar/index.js */ 8);
 
 var _index8 = _interopRequireDefault(_index7);
 
-var _index9 = __webpack_require__(/*! ./Components/UI/Switch/index.js */ 10);
+var _index9 = __webpack_require__(/*! ./Components/UI/Showcase/index.js */ 10);
 
 var _index10 = _interopRequireDefault(_index9);
 
-var _index11 = __webpack_require__(/*! ./Components/UI/VolumeBar/index.js */ 12);
+var _index11 = __webpack_require__(/*! ./Components/UI/Switch/index.js */ 12);
 
 var _index12 = _interopRequireDefault(_index11);
 
-var _index13 = __webpack_require__(/*! ./Components/UI/Window/index.js */ 14);
+var _index13 = __webpack_require__(/*! ./Components/UI/Tag/index.js */ 14);
 
 var _index14 = _interopRequireDefault(_index13);
 
-var _index15 = __webpack_require__(/*! ./Components/Game/NamePlate/index.js */ 16);
+var _index15 = __webpack_require__(/*! ./Components/UI/VolumeBar/index.js */ 16);
 
 var _index16 = _interopRequireDefault(_index15);
 
-var _index17 = __webpack_require__(/*! ./Components/Game/StatBar/index.js */ 18);
+var _index17 = __webpack_require__(/*! ./Components/UI/Window/index.js */ 18);
 
 var _index18 = _interopRequireDefault(_index17);
 
-var _index19 = __webpack_require__(/*! ./Components/Media/Avatar/index.js */ 29);
+var _index19 = __webpack_require__(/*! ./Components/Game/DamageIndicator/index.js */ 20);
 
 var _index20 = _interopRequireDefault(_index19);
 
-var _index21 = __webpack_require__(/*! ./Components/Media/Icon/index.js */ 31);
+var _index21 = __webpack_require__(/*! ./Components/Game/NamePlate/index.js */ 22);
 
 var _index22 = _interopRequireDefault(_index21);
 
-var _index23 = __webpack_require__(/*! ./Components/Media/MusicPlayer/index.js */ 20);
+var _index23 = __webpack_require__(/*! ./Components/Game/ScreenSplatter/index.js */ 24);
 
 var _index24 = _interopRequireDefault(_index23);
 
-var _index25 = __webpack_require__(/*! ./Components/Media/VideoPlayer/index.js */ 22);
+var _index25 = __webpack_require__(/*! ./Components/Game/ScreenWriter/index.js */ 26);
 
 var _index26 = _interopRequireDefault(_index25);
+
+var _index27 = __webpack_require__(/*! ./Components/Game/StatBar/index.js */ 28);
+
+var _index28 = _interopRequireDefault(_index27);
+
+var _index29 = __webpack_require__(/*! ./Components/Media/Avatar/index.js */ 30);
+
+var _index30 = _interopRequireDefault(_index29);
+
+var _index31 = __webpack_require__(/*! ./Components/Media/Icon/index.js */ 32);
+
+var _index32 = _interopRequireDefault(_index31);
+
+var _index33 = __webpack_require__(/*! ./Components/Media/Line/index.js */ 34);
+
+var _index34 = _interopRequireDefault(_index33);
+
+var _index35 = __webpack_require__(/*! ./Components/Media/MusicPlayer/index.js */ 36);
+
+var _index36 = _interopRequireDefault(_index35);
+
+var _index37 = __webpack_require__(/*! ./Components/Media/Shape/index.js */ 38);
+
+var _index38 = _interopRequireDefault(_index37);
+
+var _index39 = __webpack_require__(/*! ./Components/Media/VideoPlayer/index.js */ 40);
+
+var _index40 = _interopRequireDefault(_index39);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -958,32 +1011,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           // Popover: Popover,
           // ProgressBar: ProgressBar,
           SeekBar: _index8.default,
-          // Showcase: Showcase,
+          Showcase: _index10.default,
           // Slider: Slider,
-          Switch: _index10.default,
+          Switch: _index12.default,
           // Tab: Tab,
-          // Tag: Tag,
+          Tag: _index14.default,
           // Timer: Timer,
           // Toast: Toast,
           // Toggle: Toggle,
           // Tooltip: Tooltip,
-          VolumeBar: _index12.default,
-          Window: _index14.default
+          VolumeBar: _index16.default,
+          Window: _index18.default
         },
         Game: {
-          // DamageIndicator: DamageIndicator,
+          DamageIndicator: _index20.default,
           // Minimap: Minimap,
-          NamePlate: _index16.default,
-          StatBar: _index18.default
+          NamePlate: _index22.default,
+          ScreenSplatter: _index24.default,
+          ScreenWriter: _index26.default,
+          StatBar: _index28.default
         },
         Media: {
-          Avatar: _index20.default,
+          Avatar: _index30.default,
           // Carousel: Carousel,
-          Icon: _index22.default,
-          // Line: Line,
-          MusicPlayer: _index24.default,
-          // Shape: Shape,
-          VideoPlayer: _index26.default
+          Icon: _index32.default,
+          Line: _index34.default,
+          MusicPlayer: _index36.default,
+          Shape: _index38.default,
+          VideoPlayer: _index40.default
         }
       };
 
@@ -1452,6 +1507,91 @@ exports.default = {
 
 /***/ }),
 /* 10 */
+/*!************************************************!*\
+  !*** ./src/js/Components/UI/Showcase/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 11);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.showcase').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.showcase');
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 11 */
+/*!***************************************************!*\
+  !*** ./src/js/Components/UI/Showcase/template.js ***!
+  \***************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: ""
+};
+
+/***/ }),
+/* 12 */
 /*!**********************************************!*\
   !*** ./src/js/Components/UI/Switch/index.js ***!
   \**********************************************/
@@ -1474,7 +1614,7 @@ var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 11);
+var _template = __webpack_require__(/*! ./template.js */ 13);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1520,12 +1660,9 @@ var _class = function (_WebComponent) {
       var checkbox = this._.el.checkbox;
       checkbox.addEventListener('change', function (ev) {
         if (container !== null) {
-          var event = new CustomEvent('switch', {
-            detail: {
-              checked: checkbox.checked
-            }
+          this.trigger('switch', {
+            checked: checkbox.checked
           });
-          container.dispatchEvent(event);
         }
       });
     }
@@ -1542,7 +1679,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 11 */
+/* 13 */
 /*!*************************************************!*\
   !*** ./src/js/Components/UI/Switch/template.js ***!
   \*************************************************/
@@ -1561,7 +1698,130 @@ exports.default = {
 };
 
 /***/ }),
-/* 12 */
+/* 14 */
+/*!*******************************************!*\
+  !*** ./src/js/Components/UI/Tag/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 15);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.tag').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.tag');
+
+      var container = this._.el.container;
+      if (container !== null) {
+        this._.el.identifier = container.querySelector('.identifier');
+        this._.el.text = container.querySelector('.text');
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      var _this2 = this;
+
+      var container = this._.el.container;
+      if (container !== null) {
+        if (this._.options.backgroundColor) {
+          this._.el.identifier.style.backgroundColor = this._.options.backgroundColor;
+        }
+
+        if (this._.options.type) {
+          this._.el.identifier.classList.add(this._.options.type);
+        }
+
+        if (this._.options.text) {
+          this._.el.text.textContent = this._.options.text;
+        }
+
+        if (this._.options.closeable === true) {
+          container.insertAdjacentHTML('beforeend', '<button class="close">&times;</button>');
+          var btnClose = container.querySelector('button.close');
+          btnClose.addEventListener('click', function (ev) {
+            console.log('close ' + _this2._.pid);
+            container.classList.add('hidden');
+            _this2.trigger('closed', {
+              pid: _this2._.pid
+            });
+          });
+        }
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 15 */
+/*!**********************************************!*\
+  !*** ./src/js/Components/UI/Tag/template.js ***!
+  \**********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"tag\" data-pid=\"[$pid]\">\n    <div class=\"identifier\"></div>\n    <a class=\"text\"></a>\n  </div>"
+};
+
+/***/ }),
+/* 16 */
 /*!*************************************************!*\
   !*** ./src/js/Components/UI/VolumeBar/index.js ***!
   \*************************************************/
@@ -1584,7 +1844,7 @@ var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 13);
+var _template = __webpack_require__(/*! ./template.js */ 17);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1728,7 +1988,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 13 */
+/* 17 */
 /*!****************************************************!*\
   !*** ./src/js/Components/UI/VolumeBar/template.js ***!
   \****************************************************/
@@ -1747,7 +2007,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 14 */
+/* 18 */
 /*!**********************************************!*\
   !*** ./src/js/Components/UI/Window/index.js ***!
   \**********************************************/
@@ -1770,7 +2030,7 @@ var _WebComponent2 = __webpack_require__(/*! ../WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 15);
+var _template = __webpack_require__(/*! ./template.js */ 19);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -1904,7 +2164,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 15 */
+/* 19 */
 /*!*************************************************!*\
   !*** ./src/js/Components/UI/Window/template.js ***!
   \*************************************************/
@@ -1927,7 +2187,135 @@ exports.default = {
 };
 
 /***/ }),
-/* 16 */
+/* 20 */
+/*!*********************************************************!*\
+  !*** ./src/js/Components/Game/DamageIndicator/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 21);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    // Damage Indicator
+    var dis = document.querySelectorAll('.damage-indicator');
+    var pid = void 0;
+
+    if (dis.length > 0) {
+      var lastPid = dis[0];
+      pid = parseInt(lastPid.dataset.pid) + 1;
+    } else {
+      pid = 0;
+    }
+
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default.default,
+      options: {
+        distance: 100,
+        time: 1000,
+        fadeOut: 500,
+        roundValues: true
+      }
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.damage-indicator');
+
+      if (this._.el.container !== null) {
+        var container = this._.el.container;
+        this._.el.value = container.querySelector('.value');
+        this.updateValue(this.getElement('value'), {
+          text: this._.options.amount
+        });
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+
+      var owner = this._.owner;
+      var damageIndicator = this._.el.container;
+
+      if (owner && owner.alive) {
+        var parentPos = this.getParentPosition(owner);
+        if (parentPos.x !== false && parentPos.y !== false) {
+
+          if (damageIndicator.style.display.toLowerCase() === 'none') {
+            damageIndicator.style.display = 'inline-block';
+          }
+
+          this.animate();
+        } else {
+          this.die(this.DESTROY);
+        }
+      } else {
+        this.die(this.DESTROY);
+      }
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 21 */
+/*!************************************************************!*\
+  !*** ./src/js/Components/Game/DamageIndicator/template.js ***!
+  \************************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div data-pid=\"[$pid]\" class=\"damage-indicator\">\n            <label class=\"value\">0</label>\n          </div>"
+};
+
+/***/ }),
+/* 22 */
 /*!***************************************************!*\
   !*** ./src/js/Components/Game/NamePlate/index.js ***!
   \***************************************************/
@@ -1950,7 +2338,7 @@ var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 17);
+var _template = __webpack_require__(/*! ./template.js */ 23);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -2043,7 +2431,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 17 */
+/* 23 */
 /*!******************************************************!*\
   !*** ./src/js/Components/Game/NamePlate/template.js ***!
   \******************************************************/
@@ -2062,7 +2450,33 @@ exports.default = {
 };
 
 /***/ }),
-/* 18 */
+/* 24 */
+/*!********************************************************!*\
+  !*** ./src/js/Components/Game/ScreenSplatter/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+"use strict";
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'J:\\Dropbox\\Projects\\development\\phaserwebcomponents\\src\\js\\Components\\Game\\ScreenSplatter\\index.js'\n    at Error (native)");
+
+/***/ }),
+/* 25 */,
+/* 26 */
+/*!******************************************************!*\
+  !*** ./src/js/Components/Game/ScreenWriter/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports) {
+
+"use strict";
+throw new Error("Module build failed: Error: ENOENT: no such file or directory, open 'J:\\Dropbox\\Projects\\development\\phaserwebcomponents\\src\\js\\Components\\Game\\ScreenWriter\\index.js'\n    at Error (native)");
+
+/***/ }),
+/* 27 */,
+/* 28 */
 /*!*************************************************!*\
   !*** ./src/js/Components/Game/StatBar/index.js ***!
   \*************************************************/
@@ -2085,7 +2499,7 @@ var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 19);
+var _template = __webpack_require__(/*! ./template.js */ 29);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -2279,7 +2693,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 19 */
+/* 29 */
 /*!****************************************************!*\
   !*** ./src/js/Components/Game/StatBar/template.js ***!
   \****************************************************/
@@ -2298,7 +2712,376 @@ exports.default = {
 };
 
 /***/ }),
-/* 20 */
+/* 30 */
+/*!*************************************************!*\
+  !*** ./src/js/Components/Media/Avatar/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 31);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.avatar').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.avatar');
+
+      var container = this._.el.container;
+      if (container !== null) {
+        this._.el.image = container.querySelector('.image');
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+      if (container !== null) {
+
+        if (this._.options.defaultSource) {
+          container.style.backgroundImage = 'url(\'' + this._.options.defaultSource + '\')';
+        }
+
+        if (this._.options.source) {
+          this._.el.image.src = this._.options.source;
+        } else {
+          this._.el.image.style.display = 'none';
+        }
+
+        if (this._.options.size) {
+          container.style.height = this._.options.size;
+          container.style.width = this._.options.size;
+        }
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 31 */
+/*!****************************************************!*\
+  !*** ./src/js/Components/Media/Avatar/template.js ***!
+  \****************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"avatar\" data-pid=\"[$pid]\">\n    <img src=\"[$source]\" class=\"image\" />\n  </div>"
+};
+
+/***/ }),
+/* 32 */
+/*!***********************************************!*\
+  !*** ./src/js/Components/Media/Icon/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template2 = __webpack_require__(/*! ./template.js */ 33);
+
+var _template3 = _interopRequireDefault(_template2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.icon').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template3.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.icon');
+
+      var container = this._.el.container;
+      if (container !== null) {}
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+      if (container !== null) {
+
+        var _template = this._.options.template;
+        if (typeof _template === 'string') {
+          container.insertAdjacentHTML('beforeend', _template);
+        }
+      }
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 33 */
+/*!**************************************************!*\
+  !*** ./src/js/Components/Media/Icon/template.js ***!
+  \**************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"icon\" data-pid=\"[$pid]\"></div>"
+};
+
+/***/ }),
+/* 34 */
+/*!***********************************************!*\
+  !*** ./src/js/Components/Media/Line/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 35);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.line').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.line');
+
+      var container = this._.el.container;
+      if (container !== null) {
+        this._.el.image = container.querySelector('.image');
+      }
+    }
+  }, {
+    key: 'setupComponent',
+    value: function setupComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
+
+      var container = this._.el.container;
+      if (container !== null) {
+
+        if (this._.options.color) {
+          container.style.backgroundColor = this._.options.color;
+        }
+
+        if (!isNaN(this._.options.thickness)) {
+          container.style.width = this._.options.thickness + 'px';
+        }
+
+        if (this.isObject(this._.options.points)) {
+          var ax = 0,
+              ay = 0,
+              bx = 0,
+              by = 0;
+          if (this.isObject(this._.options.points.a)) {
+            ax = this._.options.points.a.x;
+            ay = this._.options.points.a.y;
+          }
+          if (this.isObject(this._.options.points.b)) {
+            bx = this._.options.points.b.x;
+            by = this._.options.points.b.y;
+          }
+          this.draw(ax, ay, bx, by);
+        }
+      }
+    }
+  }, {
+    key: 'draw',
+    value: function draw() {
+      var ax = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var ay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+      var bx = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+      var by = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 0;
+
+      if (ay > by) {
+        bx = ax + bx;
+        ax = bx - ax;
+        bx = bx - ax;
+        by = ay + by;
+        ay = by - ay;
+        by = by - ay;
+      }
+
+      var container = this._.el.container;
+      var length = Math.sqrt((ax - bx) * (ax - bx) + (ay - by) * (ay - by));
+      var calc = Math.atan((ay - by) / (bx - ax));
+      calc = calc * 180 / Math.PI;
+      container.style.height = length + 'px';
+      container.style.top = ay + 'px';
+      container.style.left = ax + 'px';
+      container.style.transform = 'rotate(' + calc + 'deg)';
+      container.style['-ms-transform'] = 'rotate(' + calc + 'deg)';
+      container.style['-moz-transform'] = 'rotate(' + calc + 'deg)';
+      container.style['-webkit-transform'] = 'rotate(' + calc + 'deg)';
+      container.style['-o-transform'] = 'rotate(' + calc + 'deg)';
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 35 */
+/*!**************************************************!*\
+  !*** ./src/js/Components/Media/Line/template.js ***!
+  \**************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"line\" data-pid=\"[$pid]\"></div>"
+};
+
+/***/ }),
+/* 36 */
 /*!******************************************************!*\
   !*** ./src/js/Components/Media/MusicPlayer/index.js ***!
   \******************************************************/
@@ -2321,7 +3104,7 @@ var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template = __webpack_require__(/*! ./template.js */ 21);
+var _template = __webpack_require__(/*! ./template.js */ 37);
 
 var _template2 = _interopRequireDefault(_template);
 
@@ -2364,7 +3147,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 21 */
+/* 37 */
 /*!*********************************************************!*\
   !*** ./src/js/Components/Media/MusicPlayer/template.js ***!
   \*********************************************************/
@@ -2383,7 +3166,97 @@ exports.default = {
 };
 
 /***/ }),
-/* 22 */
+/* 38 */
+/*!************************************************!*\
+  !*** ./src/js/Components/Media/Shape/index.js ***!
+  \************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+
+var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
+
+var _WebComponent3 = _interopRequireDefault(_WebComponent2);
+
+var _template = __webpack_require__(/*! ./template.js */ 39);
+
+var _template2 = _interopRequireDefault(_template);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// Shapes
+//    square, rectangle
+//    circle, elipses
+//    triangle
+
+var _class = function (_WebComponent) {
+  _inherits(_class, _WebComponent);
+
+  function _class(options) {
+    _classCallCheck(this, _class);
+
+    var pid = document.querySelectorAll('.shape').length;
+    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
+      pid: pid,
+      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
+    }));
+  }
+
+  _createClass(_class, [{
+    key: 'createComponent',
+    value: function createComponent() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.shape');
+    }
+  }, {
+    key: 'update',
+    value: function update() {
+      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
+    }
+  }]);
+
+  return _class;
+}(_WebComponent3.default);
+
+exports.default = _class;
+
+/***/ }),
+/* 39 */
+/*!***************************************************!*\
+  !*** ./src/js/Components/Media/Shape/template.js ***!
+  \***************************************************/
+/*! no static exports found */
+/*! all exports used */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  default: "<div class=\"shape\"></div>"
+};
+
+/***/ }),
+/* 40 */
 /*!******************************************************!*\
   !*** ./src/js/Components/Media/VideoPlayer/index.js ***!
   \******************************************************/
@@ -2406,7 +3279,7 @@ var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
 
 var _WebComponent3 = _interopRequireDefault(_WebComponent2);
 
-var _template2 = __webpack_require__(/*! ./template.js */ 23);
+var _template2 = __webpack_require__(/*! ./template.js */ 41);
 
 var _template3 = _interopRequireDefault(_template2);
 
@@ -2970,7 +3843,7 @@ var _class = function (_WebComponent) {
 exports.default = _class;
 
 /***/ }),
-/* 23 */
+/* 41 */
 /*!*********************************************************!*\
   !*** ./src/js/Components/Media/VideoPlayer/template.js ***!
   \*********************************************************/
@@ -2989,7 +3862,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 24 */
+/* 42 */
 /*!*****************************!*\
   !*** ./src/sass/index.scss ***!
   \*****************************/
@@ -2998,229 +3871,7 @@ exports.default = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"hidden":"hidden","resizer":"resizer","left":"left","right":"right","top":"top","bottom":"bottom","loader":"loader","circle":"circle","rotation":"rotation","color":"color","marker":"marker","arrow-outer":"arrow-outer","arrow-inner":"arrow-inner","text":"text","seek-bar":"seek-bar","progress":"progress","buffer":"buffer","bar":"bar","scrubber":"scrubber","switch":"switch","volume-bar":"volume-bar","back":"back","fill":"fill","backdrop":"backdrop","alert":"alert","active":"active","header":"header","icon":"icon","title":"title","title-text":"title-text","controls":"controls","control":"control","body":"body","window":"window","panel":"panel","name-plate":"name-plate","display":"display","overlay":"overlay","stat-bar":"stat-bar","dark-background":"dark-background","big":"big","value":"value","max":"max","avatar":"avatar","image":"image","video-player":"video-player","player":"player","fullscreen":"fullscreen","video":"video","play":"play","fa":"fa","fa-play":"fa-play","mute":"mute"};
-
-/***/ }),
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */
-/*!*************************************************!*\
-  !*** ./src/js/Components/Media/Avatar/index.js ***!
-  \*************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
-
-var _WebComponent3 = _interopRequireDefault(_WebComponent2);
-
-var _template = __webpack_require__(/*! ./template.js */ 30);
-
-var _template2 = _interopRequireDefault(_template);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_WebComponent) {
-  _inherits(_class, _WebComponent);
-
-  function _class(options) {
-    _classCallCheck(this, _class);
-
-    var pid = document.querySelectorAll('.avatar').length;
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
-      pid: pid,
-      template: _template2.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
-    }));
-  }
-
-  _createClass(_class, [{
-    key: 'createComponent',
-    value: function createComponent() {
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.avatar');
-
-      var container = this._.el.container;
-      if (container !== null) {
-        this._.el.image = container.querySelector('.image');
-      }
-    }
-  }, {
-    key: 'setupComponent',
-    value: function setupComponent() {
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
-
-      var container = this._.el.container;
-      if (container !== null) {
-
-        if (this._.options.defaultSource) {
-          this._.el.container.style.backgroundImage = 'url(\'' + this._.options.defaultSource + '\')';
-        }
-
-        if (this._.options.source) {
-          this._.el.image.src = this._.options.source;
-        } else {
-          this._.el.image.style.display = 'none';
-        }
-
-        if (this._.options.size) {
-          this._.el.container.style.height = this._.options.size;
-          this._.el.container.style.width = this._.options.size;
-          // this._.el.image.style.height = this._.options.size;
-          // this._.el.image.style.width = this._.options.size;
-        }
-      }
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
-    }
-  }]);
-
-  return _class;
-}(_WebComponent3.default);
-
-exports.default = _class;
-
-/***/ }),
-/* 30 */
-/*!****************************************************!*\
-  !*** ./src/js/Components/Media/Avatar/template.js ***!
-  \****************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  default: "<div class=\"avatar\" data-pid=\"[$pid]\">\n    <img src=\"[$source]\" class=\"image\" />\n  </div>"
-};
-
-/***/ }),
-/* 31 */
-/*!***********************************************!*\
-  !*** ./src/js/Components/Media/Icon/index.js ***!
-  \***********************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
-
-var _WebComponent2 = __webpack_require__(/*! ../../UI/WebComponent */ 0);
-
-var _WebComponent3 = _interopRequireDefault(_WebComponent2);
-
-var _template2 = __webpack_require__(/*! ./template.js */ 32);
-
-var _template3 = _interopRequireDefault(_template2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _class = function (_WebComponent) {
-  _inherits(_class, _WebComponent);
-
-  function _class(options) {
-    _classCallCheck(this, _class);
-
-    var pid = document.querySelectorAll('.icon').length;
-    return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, options, {
-      pid: pid,
-      template: _template3.default[typeof opts !== 'undefined' && opts.type ? opts.type : 'default']
-    }));
-  }
-
-  _createClass(_class, [{
-    key: 'createComponent',
-    value: function createComponent() {
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'createComponent', this).call(this, '.icon');
-
-      var container = this._.el.container;
-      if (container !== null) {}
-    }
-  }, {
-    key: 'setupComponent',
-    value: function setupComponent() {
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'setupComponent', this).call(this);
-
-      var container = this._.el.container;
-      if (container !== null) {
-
-        var _template = this._.options.template;
-        if (typeof _template === 'string') {
-          container.insertAdjacentHTML('beforeend', _template);
-        }
-      }
-    }
-  }, {
-    key: 'update',
-    value: function update() {
-      _get(_class.prototype.__proto__ || Object.getPrototypeOf(_class.prototype), 'update', this).call(this);
-    }
-  }]);
-
-  return _class;
-}(_WebComponent3.default);
-
-exports.default = _class;
-
-/***/ }),
-/* 32 */
-/*!**************************************************!*\
-  !*** ./src/js/Components/Media/Icon/template.js ***!
-  \**************************************************/
-/*! no static exports found */
-/*! all exports used */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {
-  default: "<div class=\"icon\" data-pid=\"[$pid]\"></div>"
-};
+module.exports = {"hidden":"hidden","resizer":"resizer","left":"left","right":"right","top":"top","bottom":"bottom","loader":"loader","circle":"circle","rotation":"rotation","color":"color","marker":"marker","arrow-outer":"arrow-outer","arrow-inner":"arrow-inner","text":"text","seek-bar":"seek-bar","progress":"progress","buffer":"buffer","bar":"bar","scrubber":"scrubber","switch":"switch","tag":"tag","identifier":"identifier","close":"close","volume-bar":"volume-bar","back":"back","fill":"fill","backdrop":"backdrop","alert":"alert","active":"active","header":"header","icon":"icon","title":"title","title-text":"title-text","controls":"controls","control":"control","body":"body","window":"window","panel":"panel","damage-indicator":"damage-indicator","value":"value","name-plate":"name-plate","display":"display","overlay":"overlay","screen-splatter":"screen-splatter","stat-bar":"stat-bar","dark-background":"dark-background","big":"big","max":"max","avatar":"avatar","image":"image","line":"line","video-player":"video-player","player":"player","fullscreen":"fullscreen","video":"video","play":"play","fa":"fa","fa-play":"fa-play","mute":"mute"};
 
 /***/ })
 /******/ ]);

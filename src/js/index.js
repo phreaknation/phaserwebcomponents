@@ -23,7 +23,7 @@ import SeekBar from './Components/UI/SeekBar/index.js';
 // import Slider from './Components/UI/Slider/index.js';
 import Switch from './Components/UI/Switch/index.js';
 // import Tab from './Components/UI/Tab/index.js';
-// import Tag from './Components/UI/Tag/index.js';
+import Tag from './Components/UI/Tag/index.js';
 // import Timer from './Components/UI/Timer/index.js';
 // import Toast from './Components/UI/Toast/index.js';
 // import Toggle from './Components/UI/Toggle/index.js';
@@ -34,12 +34,14 @@ import Window from './Components/UI/Window/index.js';
 // import DamageIndicator from './Components/Game/DamageIndicator/index.js';
 // import Minimap from './Components/Game/Minimap/index.js';
 import NamePlate from './Components/Game/NamePlate/index.js';
+import ScreenSplatter from './Components/Game/ScreenSplatter/index.js';
+import ScreenWriter from './Components/Game/ScreenWriter/index.js';
 import StatBar from './Components/Game/StatBar/index.js';
 
 import Avatar from './Components/Media/Avatar/index.js';
 // import Carousel from './Components/Media/Carousel/index.js';
 import Icon from './Components/Media/Icon/index.js';
-// import Line from './Components/Media/Line/index.js';
+import Line from './Components/Media/Line/index.js';
 import MusicPlayer from './Components/Media/MusicPlayer/index.js';
 // import Shape from './Components/Media/Shape/index.js';
 import VideoPlayer from './Components/Media/VideoPlayer/index.js';
@@ -78,7 +80,7 @@ import VideoPlayer from './Components/Media/VideoPlayer/index.js';
           // Slider: Slider,
           Switch: Switch,
           // Tab: Tab,
-          // Tag: Tag,
+          Tag: Tag,
           // Timer: Timer,
           // Toast: Toast,
           // Toggle: Toggle,
@@ -90,13 +92,14 @@ import VideoPlayer from './Components/Media/VideoPlayer/index.js';
           // DamageIndicator: DamageIndicator,
           // Minimap: Minimap,
           NamePlate: NamePlate,
+          ScreenSplatter: ScreenSplatter,
           StatBar: StatBar,
         },
         Media: {
           Avatar: Avatar,
           // Carousel: Carousel,
           Icon: Icon,
-          // Line: Line,
+          Line: Line,
           MusicPlayer: MusicPlayer,
           // Shape: Shape,
           VideoPlayer: VideoPlayer,

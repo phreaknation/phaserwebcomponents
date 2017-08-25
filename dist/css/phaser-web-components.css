@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .hidden {
-  display: none; }
+  display: none !important; }
 
 [data-isresizeable="true"] .resizer.left, [data-isresizeable="true"] .resizer.right {
   pointer: ew-resize; }
@@ -258,6 +258,35 @@ switch {
     .switch input[type=checkbox]:checked + label {
       left: 43px; }
 
+.tag {
+  display: inline-block;
+  background-color: #fefdfe;
+  margin: 2px;
+  padding: 6px 16px 6px 20px;
+  position: relative; }
+  .tag .identifier {
+    background-color: #2a2020;
+    display: inline-block;
+    position: absolute; }
+    .tag .identifier.color {
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px; }
+  .tag .text {
+    display: inline-block;
+    color: #2a2020; }
+  .tag button.close {
+    background-color: gainsboro;
+    border: 1px solid #222;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-left: 8px;
+    padding: 1px 5px; }
+
 .volume-bar {
   height: 30px;
   width: 100px;
@@ -444,6 +473,18 @@ switch {
   .window .header + .body, .panel .header + .body {
     top: 40px; }
 
+.damage-indicator {
+  background: transparent;
+  position: absolute;
+  z-index: 20; }
+  .damage-indicator .value {
+    color: #f00;
+    font-size: 14px;
+    font-weight: bold;
+    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
+    pointer-events: none;
+    user-select: none; }
+
 .name-plate {
   background: #f0f0f0;
   border: 2px ridge #222;
@@ -479,6 +520,15 @@ switch {
       position: absolute;
       top: 0;
       left: 0; }
+
+.screen-splatter {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute; }
 
 .stat-bar {
   /*background: #444;*/
@@ -562,6 +612,16 @@ switch {
 
 .icon {
   position: absolute; }
+
+.line {
+  background-color: black;
+  position: absolute;
+  transform-origin: 0% 0%;
+  -ms-transform-origin: 0% 0%;
+  -moz-transform-origin: 0% 0%;
+  -webkit-transform-origin: 0% 0%;
+  -o-transform-origin: 0% 0%;
+  width: 1px; }
 
 .video-player {
   display: inline-block;

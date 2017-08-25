@@ -1,0 +1,39 @@
+.tag {
+  display: inline-block;
+  background-color: rgb(254,253,254);
+  margin: 2px;
+  padding: 6px 16px 6px 20px;
+  position: relative;
+
+  .identifier {
+    background-color: rgb(42, 32, 32);
+    display: inline-block;
+    position: absolute;
+
+    &.color {
+      top: 0; bottom: 0; left: 0;
+      width: 4px;
+    }
+
+    &.arrow {
+
+    }
+  }
+
+  .text {
+    display: inline-block;
+    color: rgb(42, 32, 32);
+  }
+
+  button.close {
+    background-color: rgb(220, 220, 220);
+    border: 1px solid #222;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-left: 8px;
+    padding: 1px 5px;
+  }
+}
