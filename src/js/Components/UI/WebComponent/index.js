@@ -437,6 +437,32 @@ export default class extends Phaser.Sprite {
 
   // Helpers
 
+  convertCSSUnit(_from, _to, _base = 1000) {
+    let rx_from = /(auto|0)|([+-]?)(\d+)(px|%|cm|em|ex|in|mm|pc|pt|px|rem|vh|vw|vmin)/;
+    let rx_to = /(px|%|cm|em|ex|in|mm|pc|pt|px|rem|vh|vw|vmin)/;
+    _from = String(_from).toLowerCase();
+    _to = String(_to).toLowerCase();
+
+    let match_to = _to.match(rx_to);
+    if (typeof _from === 'string' && !this.isUndefined(match_to[1])) {
+      let match_from = _from.match(rx_from);
+
+      if ((!this.isUndefined(match_from[1]) && match_from[1].toLowerCase() === 'auto') || (!this.isUndefined(match_from[3]) && !this.isUndefined(match_from[4]))) {
+        let body = document.querySelector('body');
+        body.insertAdjacentHTML('beforeend', `<div class="conver-css-unit" style="position: absolute; top: -99999px; visibility: hidden;">
+          <div class="_to" style="width: ${_base + _to};"></div>
+        </div>`);
+        let p = body.querySelector('.conver-css-unit');
+        let b = p.querySelector('._to');
+
+        let factor = _base / b.offsetWidth;
+        body.removeChild(p);
+        return factor * match_from[3] + _to;
+      }
+    }
+    return false;
+  }
+
   isNode (o) {
     return (
       typeof Node === "object" ? o instanceof Node :
@@ -449,6 +475,10 @@ export default class extends Phaser.Sprite {
       typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
       o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
     );
+  }
+
+  isUndefined(o) {
+    return o === undefined;
   }
 
   isObject(o) {
