@@ -3,6 +3,8 @@ By Joel Dies
 
 Web components that are phaser aware. If you wish to request a component please submit an issue with **[REQUEST]** at the start of the title and a breif description and add a couple links to where examples of the component can be found.
 
+Now you can [request](https://github.com/phreaknation/phaserwebcomponents/wiki/Request-a-new-component-or-one-to-be-focused-on) a new component or one to be focused on.
+
 **This is not 100% documented but is on its way to being 100% documented.**
 
 Help support these efforts by becoming a [Patreon](https://www.patreon.com/user?u=4928922)
