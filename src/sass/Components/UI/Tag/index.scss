@@ -2,6 +2,7 @@
   display: inline-block;
   background-color: rgb(254,253,254);
   margin: 2px;
+  height: 32px;
   padding: 6px 16px 6px 20px;
   position: relative;
 
@@ -16,12 +17,59 @@
     }
 
     &.arrow {
+      border-radius: 5px;
+      display: inline-block;
+      position: absolute;
+      top: 5.5px;
+      transform: rotate(45deg);
 
+      &.left {
+        left: -7px;
+      }
+
+      &.right {
+        right: -7px;
+      }
+    }
+  }
+
+  .cover {
+    background-color: #fefdfe;
+    position: absolute;
+    top: 0;
+
+    &.left {
+      border-radius: 7px 0 0 7px;
+      left: 0;
+
+      &:before {
+        left: calc(50% - 6px);
+      }
+    }
+
+    &.right {
+      border-radius: 0 7px 7px 0;
+      right: 0;
+
+      &:before {
+        left: calc(50% - 2px);
+      }
+    }
+
+    &:before {
+      background-color: rgb(254,253,254);
+      border-radius: 50%;
+      content: '';
+      display: inline-block;
+      height: 8px; width: 8px;
+      position: absolute;
+      top: calc(50% - 4px);
     }
   }
 
   .text {
     display: inline-block;
+    line-height: 20px;
     color: rgb(42, 32, 32);
   }
 
