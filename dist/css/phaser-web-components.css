@@ -2,6 +2,12 @@
 .hidden {
   display: none !important; }
 
+.pull-left {
+  float: left !important; }
+
+.pull-right {
+  float: right !important; }
+
 [data-isresizeable="true"] .resizer.left, [data-isresizeable="true"] .resizer.right {
   pointer: ew-resize; }
 
@@ -262,6 +268,7 @@ switch {
   display: inline-block;
   background-color: #fefdfe;
   margin: 2px;
+  height: 32px;
   padding: 6px 16px 6px 20px;
   position: relative; }
   .tag .identifier {
@@ -273,8 +280,42 @@ switch {
       bottom: 0;
       left: 0;
       width: 4px; }
+    .tag .identifier.arrow {
+      border-radius: 5px;
+      display: inline-block;
+      position: absolute;
+      top: 5.5px;
+      transform: rotate(45deg); }
+      .tag .identifier.arrow.left {
+        left: -7px; }
+      .tag .identifier.arrow.right {
+        right: -7px; }
+  .tag .cover {
+    background-color: #fefdfe;
+    position: absolute;
+    top: 0; }
+    .tag .cover.left {
+      border-radius: 7px 0 0 7px;
+      left: 0; }
+      .tag .cover.left:before {
+        left: calc(50% - 6px); }
+    .tag .cover.right {
+      border-radius: 0 7px 7px 0;
+      right: 0; }
+      .tag .cover.right:before {
+        left: calc(50% - 2px); }
+    .tag .cover:before {
+      background-color: #fefdfe;
+      border-radius: 50%;
+      content: '';
+      display: inline-block;
+      height: 8px;
+      width: 8px;
+      position: absolute;
+      top: calc(50% - 4px); }
   .tag .text {
     display: inline-block;
+    line-height: 20px;
     color: #2a2020; }
   .tag button.close {
     background-color: gainsboro;
@@ -472,18 +513,6 @@ switch {
     user-select: none; }
   .window .header + .body, .panel .header + .body {
     top: 40px; }
-
-.damage-indicator {
-  background: transparent;
-  position: absolute;
-  z-index: 20; }
-  .damage-indicator .value {
-    color: #f00;
-    font-size: 14px;
-    font-weight: bold;
-    text-shadow: 1px 0 0 #000, 0 -1px 0 #000, 0 1px 0 #000, -1px 0 0 #000;
-    pointer-events: none;
-    user-select: none; }
 
 .name-plate {
   background: #f0f0f0;

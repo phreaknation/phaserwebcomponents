@@ -27,7 +27,7 @@
 // @import './Components/UI/Slider/index.scss';
 @import './Components/UI/Switch/index.scss';
 // @import './Components/UI/Tab/index.scss';
-// @import './Components/UI/Tag/index.scss';
+@import './Components/UI/Tag/index.scss';
 // @import './Components/UI/Timer/index.scss';
 // @import './Components/UI/Toast/index.scss';
 // @import './Components/UI/Toggle/index.scss';
@@ -38,12 +38,14 @@
 // @import './Components/Game/DamageIndicator/index.scss';
 // @import './Components/Game/Minimap/index.scss';
 @import './Components/Game/NamePlate/index.scss';
+@import './Components/Game/ScreenSplatter/index.scss';
+// @import './Components/Game/ScreenWriter/index.scss';
 @import './Components/Game/StatBar/index.scss';
 
 @import './Components/Media/Avatar/index.scss';
 // @import './Components/Media/Carousel/index.scss';
 @import './Components/Media/Icon/index.scss';
-// @import './Components/Media/Line/index.scss';
+@import './Components/Media/Line/index.scss';
 @import './Components/Media/MusicPlayer/index.scss';
 // @import './Components/Media/Shape/index.scss';
 @import './Components/Media/VideoPlayer/index.scss';

@@ -31,11 +31,11 @@ import Tag from './Components/UI/Tag/index.js';
 import VolumeBar from './Components/UI/VolumeBar/index.js';
 import Window from './Components/UI/Window/index.js';
 
-// import DamageIndicator from './Components/Game/DamageIndicator/index.js';
+import DamageIndicator from './Components/Game/DamageIndicator/index.js';
 // import Minimap from './Components/Game/Minimap/index.js';
 import NamePlate from './Components/Game/NamePlate/index.js';
 import ScreenSplatter from './Components/Game/ScreenSplatter/index.js';
-import ScreenWriter from './Components/Game/ScreenWriter/index.js';
+// import ScreenWriter from './Components/Game/ScreenWriter/index.js';
 import StatBar from './Components/Game/StatBar/index.js';
 
 import Avatar from './Components/Media/Avatar/index.js';
@@ -89,10 +89,11 @@ import VideoPlayer from './Components/Media/VideoPlayer/index.js';
           Window: Window,
         },
         Game: {
-          // DamageIndicator: DamageIndicator,
+          DamageIndicator: DamageIndicator,
           // Minimap: Minimap,
           NamePlate: NamePlate,
           ScreenSplatter: ScreenSplatter,
+          // ScreenWriter: ScreenWriter,
           StatBar: StatBar,
         },
         Media: {
